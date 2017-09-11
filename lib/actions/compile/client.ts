@@ -4,9 +4,9 @@ import * as lib from "../..";
 async function compile(moduleName: string): Promise<boolean> {
     console.log("Compiling client-side JS...");
     const moduleDir: string = lib.WORKING_DIR + "/modules/" + moduleName;
-    const staticFiles: string[] = (await fs.readJSON(moduleDir + "/eta.json")).dirs.staticFiles;
+    const moduleConfig: lib.ModuleConfiguration = await fs.readJSON(moduleDir + "/eta.json");
     let success = true;
-    for (const staticDir of staticFiles) {
+    for (const staticDir of moduleConfig.dirs.staticFiles) {
         const jsDir = `${moduleDir}/${staticDir}/js`;
         if (!(await fs.pathExists(jsDir + "/tsconfig.json"))) {
             continue;
