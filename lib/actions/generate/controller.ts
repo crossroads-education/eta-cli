@@ -9,6 +9,7 @@ export default async function execute(args: string[]): Promise<boolean> {
     }
     const moduleName: string = args[0];
     let routeName: string = args[1];
+    console.log(`Generating controller for "${routeName}" in ${moduleName}...`);
     if (routeName.startsWith("/")) {
         routeName = routeName.substring(1);
     }
