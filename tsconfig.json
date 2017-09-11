@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2017",
+    "outDir": "./dist/",
     "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -14,7 +15,7 @@
   },
   "compileOnSave": true,
   "buildOnSave": false,
-  "exclude": ["node_modules", "typings", "modules/*/static/js"],
+  "exclude": ["node_modules"],
   "atom": {
     "rewriteTsconfig": false
   }
