@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "rootDir": "."
+  },
+  "compileOnSave": true,
+  "buildOnSave": false,
+  "exclude": ["node_modules", "typings", "modules/*/static/js"],
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}

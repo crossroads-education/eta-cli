@@ -1,0 +1,29 @@
+{
+  "name": "@xroadsed/eta-cli",
+  "version": "0.0.1",
+  "description": "CLI for Eta MVC server.",
+  "homepage": "http://github.com/crossroads-education/eta-cli/",
+  "repository": "git://github.com:crossroads-education/eta-cli.git",
+  "license": "MIT",
+  "author": "Alex Hicks <alex@crossroadseducation.org> (https://alexhicks.net)",
+  "contributors": [],
+  "main": "./cli.js",
+  "scripts": {},
+  "dependencies": {
+    "commander": "^2.11.0",
+    "fs-extra": "^4.0.1",
+    "source-map-support": "^0.4.18"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.9.2",
+    "@types/fs-extra": "^4.0.2",
+    "@types/source-map-support": "^0.4.0",
+    "tslint": "^5.7.0",
+    "typedoc": "^0.8.0",
+    "typescript": "^2.5.2",
+    "typings": "^2.1.1"
+  },
+  "engines": {
+    "node": ">=8.4.0"
+  }
+}
