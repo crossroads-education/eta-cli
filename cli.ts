@@ -22,7 +22,7 @@ export default async function main(): Promise<boolean> {
     let actionPath: string = undefined;
     let i: number;
     for (i = 0; i < args.length; i++) {
-        actionPath = lib.CLI_DIR + "/lib/actions/" + args.slice(0, i + 1).join("/") + ".js";
+        actionPath = lib.DIST_DIR + "/lib/actions/" + args.slice(0, i + 1).join("/") + ".js";
         if (await fs.pathExists(actionPath)) break;
         else actionPath = undefined;
     }
