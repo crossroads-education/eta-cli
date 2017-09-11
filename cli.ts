@@ -9,7 +9,7 @@ function printUsage(): void {
     console.log("Usage: eta <subcommand> [options]");
 }
 
-async function main(): Promise<boolean> {
+export default async function main(): Promise<boolean> {
     const args: string[] = process.argv.splice(2);
     if (args.length === 0) {
         printUsage();
@@ -33,11 +33,4 @@ async function main(): Promise<boolean> {
     const action: (args: string[]) => Promise<boolean> = require(actionPath).default;
     if (!action) throw new Error(`Internal error: invalid action defined for "${action}"`);
     return await action(args.splice(i + 1));
-}
-
-if (!module.parent) {
-    main().then((result) => { process.exit(result ? 0 : 1); })
-    .catch(err => {
-        console.error(err);
-    });
 }
