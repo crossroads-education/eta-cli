@@ -32,5 +32,5 @@ export default async function main(): Promise<boolean> {
     }
     const action: (args: string[]) => Promise<boolean> = require(actionPath).default;
     if (!action) throw new Error(`Internal error: invalid action defined for "${action}"`);
-    return await action(args.splice(i + 1));
+    return await action(args.splice(i));
 }
