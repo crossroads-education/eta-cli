@@ -3,11 +3,12 @@ import * as fs from "fs-extra";
 import * as path from "path";
 import * as lib from "../";
 import compileServer from "./compile/server";
+import generateIndexes from "./generate/indexes";
 
 export default async function execute(args: string[]): Promise<boolean> {
     const isFast: boolean = args.length === 1;
     if (!isFast) {
-        if (!await compileServer(args, true)) {
+        if ((!await generateIndexes(args)) || (!await compileServer(args, true))) {
             return false;
         }
     }
