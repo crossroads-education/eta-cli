@@ -67,9 +67,8 @@ class ModuleInstaller {
                 await lib.exec("node " + lib.CLI_DIR + "node_modules/typings/dist/bin.js i", { cwd: jsPath });
             }
         }
-        console.log("\tCompiling server-side JS...");
-        await compileServer([], false);
         if (!await generateIndexes([])) return false;
+        console.log("\tCompiling server-side JS...");
         if (!await compileServer([])) return false;
         console.log("\tCompiling client-side JS...");
         if (!await compileClient([])) return false;
