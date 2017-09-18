@@ -20,7 +20,7 @@ export default async function main(): Promise<boolean> {
         console.log("Project Eta CLI: v" + (await fs.readJSON(lib.CLI_DIR + "/package.json")).version);
         return true;
     }
-    if (!await fs.pathExists(lib.WORKING_DIR + "/package.json") || (await fs.readJSON(lib.WORKING_DIR + "/package.json")).name !== "eta") {
+    if (!await fs.pathExists(lib.WORKING_DIR + "/package.json") || (await fs.readJSON(lib.WORKING_DIR + "/package.json")).name !== "@xroadsed/eta") {
         console.error("Please run the Eta CLI tool in the root directory of an Eta v2.2+ instance.");
         return false;
     }
