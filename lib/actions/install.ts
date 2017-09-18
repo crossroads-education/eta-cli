@@ -63,6 +63,7 @@ class ModuleInstaller {
             if (!(await fs.pathExists(jsPath))) {
                 continue;
             }
+            await lib.exec("npm install");
             if (await fs.pathExists(jsPath + "/typings.json")) {
                 await lib.exec("node " + lib.CLI_DIR + "/node_modules/typings/dist/bin.js i", { cwd: jsPath });
             }
