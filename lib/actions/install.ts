@@ -18,15 +18,26 @@ class ModuleInstaller {
     }
 
     public async install(isDependency = true): Promise<boolean> {
-        try {
-            await lib.exec(`git clone ${this.url} ${this.path}`, { cwd: lib.WORKING_DIR });
-        } catch (err) {
-            if (!isDependency) {
-                console.error("Couldn't clone the repository. Please check that the Git URL exists and that your SSH key is valid.");
-            }
-            return false;
+        const gitOptions = {
+            owner: this.url.split("/")[0].split(":")[1],
+            repo: this.name,
+            path: "eta.json",
+            ref: "master",
+            requestMedia: "application/vnd.github.VERSION.raw"
+        };
+        const response = await lib.github.repos.getContent(gitOptions);
+        if (response.code === 404) {
+            console.log("404");
+            throw new Error("No eta.json file found in remote repository.");
         }
-        this.config = JSON.parse(await fs.readFile(this.path + "/eta.json", "utf-8"));
+        this.config = JSON.parse(Buffer.from(response.data.content, "base64").toString());
+        if (this.config.name !== this.name) {
+            if (await fs.pathExists(lib.WORKING_DIR + "/modules/" + this.config.name)) {
+                return false;
+            }
+            this.name = this.config.name;
+            this.path = lib.WORKING_DIR + "/modules/" + this.name;
+        }
         if (this.config.dependencies) {
             for (const url of this.config.dependencies) {
                 // dependency installation
@@ -48,12 +59,15 @@ class ModuleInstaller {
                 }
             }
         }
-        await this.fireHook("preinstall");
-        if (this.config.name !== this.name) {
-            this.name = this.config.name;
-            await fs.move(this.path, lib.WORKING_DIR + "/modules/" + this.name);
-            this.path = lib.WORKING_DIR + "/modules/" + this.name;
+        try {
+            await lib.exec(`git clone ${this.url} ${this.path}`, { cwd: lib.WORKING_DIR });
+        } catch (err) {
+            if (!isDependency) {
+                console.error("Couldn't clone the repository. Please check that the Git URL exists and that your SSH key is valid.");
+            }
+            return false;
         }
+        await this.fireHook("preinstall");
         console.log("\tInstalling NPM modules...");
         await lib.exec("npm i --only=dev", { cwd: this.path });
         await lib.exec("npm i --only=prod", { cwd: this.path });
@@ -63,16 +77,14 @@ class ModuleInstaller {
             if (!(await fs.pathExists(jsPath))) {
                 continue;
             }
-            await lib.exec("npm install");
+            await lib.exec("npm install", { cwd: jsPath });
             if (await fs.pathExists(jsPath + "/typings.json")) {
                 await lib.exec("node " + lib.CLI_DIR + "/node_modules/typings/dist/bin.js i", { cwd: jsPath });
             }
         }
-        if (!await generateIndexes([])) return false;
-        console.log("\tCompiling server-side JS...");
-        if (!await compileServer([])) return false;
-        console.log("\tCompiling client-side JS...");
-        if (!await compileClient([])) return false;
+        await generateIndexes([]);
+        await compileServer([]);
+        await compileClient([this.name]);
         return true;
     }
 
