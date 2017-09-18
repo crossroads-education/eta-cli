@@ -12,7 +12,7 @@ export default async function execute(args: string[]): Promise<boolean> {
     const configFiles: string[] = await lib.recursiveReaddir(lib.WORKING_DIR + "/config");
     await Promise.all(configFiles
         .filter(f => f.endsWith(".sample.json"))
-        .map(f => fs.copy(f, f.replace(/\.sample\.json/g, ".json")))
+        .map(f => fs.copy(f, f.replace(/\.sample\.json/g, ".json"), { overwrite: false }))
     );
     console.log("\tPlease make sure to edit the config files!");
     return true;
