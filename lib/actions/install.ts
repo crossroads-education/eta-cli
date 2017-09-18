@@ -64,7 +64,7 @@ class ModuleInstaller {
                 continue;
             }
             if (await fs.pathExists(jsPath + "/typings.json")) {
-                await lib.exec("node " + lib.CLI_DIR + "node_modules/typings/dist/bin.js i", { cwd: jsPath });
+                await lib.exec("node " + lib.CLI_DIR + "/node_modules/typings/dist/bin.js i", { cwd: jsPath });
             }
         }
         if (!await generateIndexes([])) return false;
