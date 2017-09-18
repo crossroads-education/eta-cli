@@ -16,6 +16,7 @@
   },
   "files": [
     "dist",
+    "module-template",
     "LICENSE.md",
     "README.md"
   ],
