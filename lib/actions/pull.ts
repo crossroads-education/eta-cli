@@ -18,9 +18,15 @@ export default async function execute(moduleNames: string[]): Promise<boolean> {
             continue;
         }
         console.log("\tPulling module " + moduleName);
-        const result = await lib.exec("git pull", { cwd: moduleDir });
-        if (result.stdout === "Already up-to-date.\n") {
-            continue;
+        try {
+            const result = await lib.exec("git pull", { cwd: moduleDir });
+            if (result.stdout === "Already up-to-date.\n") {
+                continue;
+            }
+        } catch (err) {
+            console.log("Couldn't pull " + moduleName + ":");
+            process.stderr.write(err.stderr);
+            return false;
         }
         console.log("\tModule " + moduleName + " had updates.");
         modulesChanged.push(moduleName);
