@@ -4,7 +4,7 @@ import * as lib from "../..";
 async function compile(jsDir: string): Promise<boolean> {
     console.log(`\tCompiling "${jsDir}"...`);
     try {
-        await lib.exec("node " + lib.COMPILER_PATH, {
+        await lib.exec("node " + lib.TSC_PATH, {
             cwd: jsDir
         });
         return true;

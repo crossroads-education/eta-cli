@@ -9,7 +9,9 @@ import * as util from "util";
 export const CLI_DIR = path.join(__dirname, "../..").replace(/\\/g, "/");
 export const DIST_DIR = path.join(CLI_DIR, "dist");
 export const HOME_DIR = os.homedir().replace(/\\/g, "/");
-export const COMPILER_PATH = CLI_DIR + "/node_modules/typescript/bin/tsc";
+export const TSC_PATH = path.dirname(require.resolve("typescript")) + "/../bin/tsc";
+export const TSLINT_PATH = path.dirname(require.resolve("tslint")) + "/../bin/tslint";
+export const TYPINGS_PATH = require.resolve("typings");
 export const WORKING_DIR = process.cwd().replace(/\\/g, "/");
 
 export const exec = util.promisify(childProcess.exec);

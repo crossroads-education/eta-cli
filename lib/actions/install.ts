@@ -79,7 +79,7 @@ class ModuleInstaller {
             }
             await lib.exec("npm install", { cwd: jsPath });
             if (await fs.pathExists(jsPath + "/typings.json")) {
-                await lib.exec("node " + lib.CLI_DIR + "/node_modules/typings/dist/bin.js i", { cwd: jsPath });
+                await lib.exec("node " + lib.TYPINGS_PATH + " i", { cwd: jsPath });
             }
         }
         await generateIndexes([]);
