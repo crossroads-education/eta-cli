@@ -182,6 +182,8 @@ export default async function execute(args: string[]): Promise<boolean> {
             promises.push(writeModuleExports(moduleDir));
         }
         await Promise.all(promises);
+    } else {
+        await fs.writeFile(lib.WORKING_DIR + "/db.ts", "export const _ = true;");
     }
     return true;
 }
