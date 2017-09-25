@@ -25,12 +25,16 @@ class ModuleInstaller {
             ref: "master",
             requestMedia: "application/vnd.github.VERSION.raw"
         };
-        const response = await lib.github.repos.getContent(gitOptions);
-        if (response.code === 404) {
-            console.log("404");
-            throw new Error("No eta.json file found in remote repository.");
+        try {
+            const response = await lib.github.repos.getContent(gitOptions);
+            this.config = JSON.parse(Buffer.from(response.data.content, "base64").toString());
+        } catch (err) {
+            if (err.code === 404) {
+                throw new Error("Module " + this.url + " does not exist, or the repository does not contain eta.json.");
+            } else {
+                throw err;
+            }
         }
-        this.config = JSON.parse(Buffer.from(response.data.content, "base64").toString());
         if (this.config.name !== this.name) {
             if (await fs.pathExists(lib.WORKING_DIR + "/modules/" + this.config.name)) {
                 return false;
