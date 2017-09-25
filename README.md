@@ -14,6 +14,7 @@ All commands should be run from the root directory of an Eta instance.
 - `eta compile server`: Compiles all server files. (Previously `npm run compile`)
 - `eta lint client`: Lints all client files (with `tslint`). (Previously `npm run lint`)
 - `eta lint server`: Lints all server files (with `tslint`). (Previously `npm run lint-client`)
+- `eta test`: Runs all unit tests for Eta core. (Previously `npm run test`)
 
 ### Generation
 
