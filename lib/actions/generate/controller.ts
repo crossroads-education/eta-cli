@@ -20,8 +20,10 @@ export default async function execute(args: string[]): Promise<boolean> {
     }
     const moduleConfig: {dirs: {controllers?: string[]}} = await fs.readJSON(moduleDir + "/eta.json");
     if (moduleConfig.dirs.controllers.length === 0) {
-        moduleConfig.dirs.controllers = ["controllers"];
-        await fs.writeFile(moduleDir + "/eta.json", JSON.stringify(moduleConfig, undefined, 2));
+        await lib.transformJsonFile(moduleDir + "/eta.json", obj => {
+            obj.dirs.controllers = ["controllers"];
+            return obj;
+        });
     }
     const controllerPath = `${moduleDir}/${moduleConfig.dirs.controllers[0]}/${routeName}.ts`;
     const relPath: string = path.relative(path.dirname(controllerPath), moduleDir).replace(/\\/g, "/");
