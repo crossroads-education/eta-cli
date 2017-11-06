@@ -45,7 +45,8 @@ export async function forEachClientJS(moduleNames: string[], worker: (jsDir: str
 }
 
 export async function transformJsonFile(filename: string, worker: (original: any) => any): Promise<void> {
-    return await fs.writeFile(filename, JSON.stringify(worker(await fs.readJSON(filename)), undefined, 2));
+    const contents: any = await fs.pathExists(filename) ? await fs.readJSON(filename) : {};
+    return await fs.writeFile(filename, JSON.stringify(worker(contents), undefined, 2));
 }
 
 export interface ModuleConfiguration {
@@ -84,6 +85,7 @@ export interface ModuleConfiguration {
      * Only Github repositories are supported.
      */
     dependencies: string[];
+    disable: boolean;
     hooks: {[key: string]: {cwd: string, exec: string}[]};
     [key: string]: any;
 }
