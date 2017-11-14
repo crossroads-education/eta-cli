@@ -110,6 +110,7 @@ export default function execute(args: string[]): Promise<boolean> {
     let url: string = args[0];
     if (!url) {
         console.log("Usage: eta install <module-url>");
+        return Promise.resolve(false);
     }
     if (!url.startsWith("git@") && !url.startsWith("https://")) {
         url = "git@github.com:" + url;

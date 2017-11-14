@@ -2,6 +2,8 @@ import * as fs from "fs-extra";
 import * as lib from "../..";
 import * as path from "path";
 
+const uniqueArray: <T>(arr: T[], uniqueIdGenerator: (element: T) => string) => T[] = require(lib.WORKING_DIR + "/helpers/array.js").default.unique;
+
 interface ScriptItem {
     name: string;
     absoluteFilename: string;
@@ -64,7 +66,7 @@ async function getScriptItems(dirs: string[], baseDir: string = lib.WORKING_DIR)
             f.absoluteFilename.endsWith(".ts")
         ));
     }
-    return items;
+    return uniqueArray(items, i => i.absoluteFilename);
 }
 
 function processItemExtends(items: ScriptItem[]): ScriptItem[] {

@@ -6,6 +6,6 @@
   "repository": "",
   "contributors": [],
   "engines": {
-    "node": ">=0.8.4.0"
+    "node": ">=8.4.0"
   }
 }
