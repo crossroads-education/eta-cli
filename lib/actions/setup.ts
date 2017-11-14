@@ -6,6 +6,7 @@ import generateIndexes from "./generate/indexes";
 
 export default async function execute(args: string[]): Promise<boolean> {
     console.log("Setting up fresh Eta instance...");
+    await compileServer([], false); // required for HelperArray compilation
     await lib.exec("npm install");
     await generateIndexes([]);
     await compileServer([], false); // it'll throw unnecessary errors about db.ts, don't need to scare the user

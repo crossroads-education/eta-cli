@@ -2,7 +2,7 @@ import * as fs from "fs-extra";
 import * as lib from "../..";
 import * as path from "path";
 
-const uniqueArray: <T>(arr: T[], uniqueIdGenerator: (element: T) => string) => T[] = require(lib.WORKING_DIR + "/helpers/array.js").default.unique;
+let uniqueArray: <T>(arr: T[], uniqueIdGenerator: (element: T) => string) => T[];
 
 interface ScriptItem {
     name: string;
@@ -174,6 +174,7 @@ function writeModuleExports(moduleDir: string): Promise<void[]> {
 
 export default async function execute(args: string[]): Promise<boolean> {
     console.log("Generating indexes and exports...");
+    uniqueArray = require(lib.WORKING_DIR + "/helpers/array.js").default.unique;
     await handleIndexConfig(lib.WORKING_DIR + "/indexes.json", false);
     if (await fs.pathExists(lib.WORKING_DIR + "/modules")) {
         const promises: Promise<any>[] = [generateModels()];
