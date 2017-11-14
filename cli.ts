@@ -34,6 +34,7 @@ export default async function main(): Promise<boolean> {
                 output: process.stdout
             });
             await (new Promise((resolve, reject) => {
+                console.log("Your Github personal access token can be created with this guide: https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/");
                 rl.question("Enter your Github personal access token: ", token => {
                     config.githubToken = token;
                     resolve();
