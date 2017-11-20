@@ -1,8 +1,7 @@
 import * as fs from "fs-extra";
 import * as lib from "../..";
 import * as path from "path";
-
-let uniqueArray: <T>(arr: T[], uniqueIdGenerator: (element: T) => string) => T[];
+import * as _ from "lodash";
 
 interface ScriptItem {
     name: string;
@@ -66,7 +65,7 @@ async function getScriptItems(dirs: string[], baseDir: string = lib.WORKING_DIR)
             f.absoluteFilename.endsWith(".ts")
         ));
     }
-    return uniqueArray(items, i => i.absoluteFilename);
+    return _.uniqBy(items, i => i.absoluteFilename);
 }
 
 function processItemExtends(items: ScriptItem[]): ScriptItem[] {
@@ -174,7 +173,6 @@ function writeModuleExports(moduleDir: string): Promise<void[]> {
 
 export default async function execute(args: string[]): Promise<boolean> {
     console.log("Generating indexes and exports...");
-    uniqueArray = require(lib.WORKING_DIR + "/helpers/array.js").default.unique;
     await handleIndexConfig(lib.WORKING_DIR + "/indexes.json", false);
     if (await fs.pathExists(lib.WORKING_DIR + "/modules")) {
         const promises: Promise<any>[] = [generateModels()];

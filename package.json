@@ -25,6 +25,7 @@
     "commander": "^2.11.0",
     "fs-extra": "^4.0.1",
     "github": "^11.0.0",
+    "lodash": "^4.17.4",
     "mocha": "^3.5.3",
     "mocha-junit-reporter": "^1.13.0",
     "recursive-readdir": "^2.2.1",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@types/commander": "^2.9.2",
     "@types/fs-extra": "^4.0.2",
+    "@types/lodash": "^4.14.85",
     "@types/recursive-readdir": "^1.2.29",
     "@types/source-map-support": "^0.4.0"
   },
