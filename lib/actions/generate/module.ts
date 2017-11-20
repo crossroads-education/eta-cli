@@ -23,6 +23,9 @@ export default async function execute(args: string[]): Promise<boolean> {
     };
     await lib.transformJsonFile(moduleDir + "/eta.json", fixJsonName);
     await lib.transformJsonFile(moduleDir + "/package.json", fixJsonName);
+    if (await fs.pathExists(moduleDir + "/.npmignore")) {
+        await fs.move(moduleDir + "/.npmignore", moduleDir + "/.gitignore");
+    }
     await generateIndexes([]);
     await lib.exec("git init", { cwd: moduleDir });
     await lib.exec("git add .", { cwd: moduleDir });
