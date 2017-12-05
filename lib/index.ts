@@ -44,9 +44,11 @@ export async function forEachClientJS(moduleNames: string[], worker: (jsDir: str
     return success;
 }
 
-export async function transformJsonFile(filename: string, worker: (original: any) => any): Promise<void> {
-    const contents: any = await fs.pathExists(filename) ? await fs.readJSON(filename) : {};
-    return await fs.writeFile(filename, JSON.stringify(worker(contents), undefined, 2));
+export async function transformJsonFile<T, U>(filename: string, worker: (original: any) => any): Promise<any> {
+    const contents: T = await fs.pathExists(filename) ? await fs.readJSON(filename) : {};
+    const newContents: U = worker(contents);
+    await fs.writeFile(filename, JSON.stringify(newContents, undefined, 2));
+    return newContents;
 }
 
 export interface ModuleConfiguration {

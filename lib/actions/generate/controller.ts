@@ -18,9 +18,9 @@ export default async function execute(args: string[]): Promise<boolean> {
         console.error(`The "eta.json" file is missing from the ${moduleName} module.`);
         return false;
     }
-    const moduleConfig: {dirs: {controllers?: string[]}} = await fs.readJSON(moduleDir + "/eta.json");
+    let moduleConfig: {dirs: {controllers?: string[]}} = await fs.readJSON(moduleDir + "/eta.json");
     if (moduleConfig.dirs.controllers.length === 0) {
-        await lib.transformJsonFile(moduleDir + "/eta.json", obj => {
+        moduleConfig = await lib.transformJsonFile(moduleDir + "/eta.json", obj => {
             obj.dirs.controllers = ["controllers"];
             return obj;
         });
