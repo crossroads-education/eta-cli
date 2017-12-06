@@ -99,7 +99,7 @@ async function generateFiles(config: any, modulePath: string): Promise<void> {
             !config.exclude.includes(i.name)
         )).forEach(item => {
             if (config.exclude.includes(item.name)) return;
-            // console.log(item.name);
+            if (config.only && !config.only.includes(item.name)) return;
             const snippet = config.type === "export" ? getExportSnippet(item) : [getIndexSnippet(item)];
             lines = item.sortFirst ? snippet.concat(lines) : lines.concat(snippet);
         });
