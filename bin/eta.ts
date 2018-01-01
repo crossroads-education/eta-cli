@@ -2,7 +2,7 @@
 
 import main from "../cli";
 
-main().then((result) => { process.exit(result ? 0 : 1); })
+main(process.argv.slice(2)).then((result) => { process.exit(result ? 0 : 1); })
 .catch(err => {
     console.error(err);
 });

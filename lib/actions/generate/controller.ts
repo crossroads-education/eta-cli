@@ -3,10 +3,6 @@ import * as path from "path";
 import * as lib from "../..";
 
 export default async function execute(args: string[]): Promise<boolean> {
-    if (args.length !== 2) {
-        console.error("Usage: eta generate controller <module-name> <route>");
-        return false;
-    }
     const moduleName: string = args[0];
     let routeName: string = args[1];
     console.log(`Generating controller for "${routeName}" in ${moduleName}...`);

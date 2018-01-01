@@ -5,6 +5,10 @@ import * as os from "os";
 import * as path from "path";
 import * as recursiveReaddirCallback from "recursive-readdir";
 import * as util from "util";
+import { ModuleConfiguration } from "./interfaces/ModuleConfiguration";
+
+export * from "./interfaces/ActionMetadata";
+export * from "./interfaces/ModuleConfiguration";
 
 export const CLI_DIR = path.join(__dirname, "../..").replace(/\\/g, "/");
 export const DIST_DIR = path.join(CLI_DIR, "dist");
@@ -49,45 +53,4 @@ export async function transformJsonFile<T, U>(filename: string, worker: (origina
     const newContents: U = worker(contents);
     await fs.writeFile(filename, JSON.stringify(newContents, undefined, 2));
     return newContents;
-}
-
-export interface ModuleConfiguration {
-    /**
-     * Directory definitions for various item types
-     */
-    dirs: {
-        controllers: string[];
-        models: string[];
-        staticFiles: string[];
-        views: string[];
-        // hooks and handlers
-        lifecycleHandlers: string[];
-        requestTransformers: string[];
-    };
-    /**
-     * CSS redirect mappings
-     */
-    css: {[key: string]: string};
-    /**
-     * The actual name of the module (in filesystem as well)
-     */
-    name: string;
-    /**
-     * Redirect definitions (i.e., "/home/index": "/home/otherPage" would redirect from index to otherPage)
-     */
-    redirects: {[key: string]: string};
-    /**
-     * Absolute path to module directory.
-     * Generated on module load by ModuleLoader.
-     */
-    rootDir: string;
-    /**
-     * Modules that this module requires.
-     * Format: username/repository
-     * Only Github repositories are supported.
-     */
-    dependencies: string[];
-    disable: boolean;
-    hooks: {[key: string]: {cwd: string, exec: string}[]};
-    [key: string]: any;
 }

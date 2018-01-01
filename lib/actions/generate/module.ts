@@ -4,10 +4,6 @@ import * as lib from "../..";
 import generateIndexes from "./indexes";
 
 export default async function execute(args: string[]): Promise<boolean> {
-    if (args.length === 0) {
-        console.error("Usage: eta generate module <name>");
-        return false;
-    }
     const moduleName: string = args[0];
     const moduleDir: string = lib.WORKING_DIR + "/modules/" + moduleName;
     if (await fs.pathExists(moduleDir)) {
