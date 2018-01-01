@@ -29,6 +29,9 @@
     "mocha": "^3.5.3",
     "mocha-junit-reporter": "^1.13.0",
     "recursive-readdir": "^2.2.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "semver": "^5.4.1",
     "source-map-support": "^0.4.18",
     "tslint": "^5.7.0",
     "typedoc": "^0.8.0",
@@ -40,6 +43,8 @@
     "@types/fs-extra": "^4.0.2",
     "@types/lodash": "^4.14.85",
     "@types/recursive-readdir": "^1.2.29",
+    "@types/request-promise": "^4.1.39",
+    "@types/semver": "^5.4.0",
     "@types/source-map-support": "^0.4.0"
   },
   "engines": {

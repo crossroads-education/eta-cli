@@ -6,6 +6,8 @@ import * as fs from "fs-extra";
 import * as lib from "./lib";
 import * as path from "path";
 import * as readline from "readline";
+import * as request from "request-promise";
+import * as semver from "semver";
 
 async function setupGithubToken(): Promise<void> {
     let config: { githubToken?: string; } = {};
@@ -31,6 +33,17 @@ async function setupGithubToken(): Promise<void> {
     });
 }
 
+async function checkCurrentVersion(): Promise<void> {
+    const packageInfo: {
+        versions: {[key: string]: any};
+    } = JSON.parse(await request.get("https://registry.npmjs.org/@xroadsed%2Feta-cli"));
+    const latestVersion = <string>semver.sort(Object.keys(packageInfo.versions)).slice(-1)[0];
+    if (latestVersion === lib.CLI_VERSION) return;
+    console.warn("Please update your Eta CLI installation!");
+    console.warn("\tCurrent version: " + lib.CLI_VERSION);
+    console.warn("\tLatest version: " + latestVersion);
+}
+
 export default async function main(args: string[]): Promise<boolean> {
     if (args.length === 0) {
         console.error("Usage: eta <subcommand> [options]");
@@ -40,6 +53,7 @@ export default async function main(args: string[]): Promise<boolean> {
         console.log("Project Eta CLI: v" + (await fs.readJSON(lib.CLI_DIR + "/package.json")).version);
         return true;
     }
+    await checkCurrentVersion();
     if (!await fs.pathExists(lib.WORKING_DIR + "/package.json") || (await fs.readJSON(lib.WORKING_DIR + "/package.json")).name !== "@xroadsed/eta") {
         console.error("Please run the Eta CLI tool in the root directory of an Eta v2.2+ instance.");
         return false;

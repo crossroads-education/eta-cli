@@ -11,6 +11,7 @@ export * from "./interfaces/ActionMetadata";
 export * from "./interfaces/ModuleConfiguration";
 
 export const CLI_DIR = path.join(__dirname, "../..").replace(/\\/g, "/");
+export const CLI_VERSION: string = fs.readJSONSync(CLI_DIR + "/package.json").version;
 export const DIST_DIR = path.join(CLI_DIR, "dist");
 export const HOME_DIR = os.homedir().replace(/\\/g, "/");
 export const MOCHA_PATH = path.dirname(require.resolve("mocha")) + "/bin/mocha";
