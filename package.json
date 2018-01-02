@@ -12,10 +12,9 @@
     "eta": "dist/bin/eta.js"
   },
   "scripts": {
-    "prepublishOnly": "node ./node_modules/typescript/bin/tsc"
+    "prepublishOnly": "node ./node_modules/typescript/bin/tsc & bash -c \"find lib/ -type f | grep -i json$ | xargs -i cp {} dist/{}\""
   },
   "files": [
-    "lib",
     "dist",
     "module-template",
     "LICENSE.md",
