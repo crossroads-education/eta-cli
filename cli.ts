@@ -61,7 +61,7 @@ export default async function main(args: string[]): Promise<boolean> {
     let actionPath: string = undefined;
     let i: number;
     for (i = args.length; i > 0; i--) {
-        actionPath = lib.CLI_DIR + "/lib/actions/" + args.slice(0, i).join("/") + ".json";
+        actionPath = lib.DIST_DIR + "/lib/actions/" + args.slice(0, i).join("/") + ".json";
         if (await fs.pathExists(actionPath)) break;
         else actionPath = undefined;
     }
@@ -82,7 +82,7 @@ export default async function main(args: string[]): Promise<boolean> {
         console.error("Usage: eta " + args.slice(0, i).join(" ") + " " + metadata.usage);
         return false;
     }
-    const action: (args: string[]) => Promise<boolean> = require(actionPath.slice(0, -2).replace(lib.CLI_DIR, lib.DIST_DIR)).default;
+    const action: (args: string[]) => Promise<boolean> = require(actionPath.slice(0, -2)).default;
     if (!action) throw new Error(`Internal error: invalid action defined for "${args.join(" ")}"`);
     return await action(actionParams);
 }
