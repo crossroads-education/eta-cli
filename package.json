@@ -15,6 +15,7 @@
     "prepublishOnly": "node ./node_modules/typescript/bin/tsc"
   },
   "files": [
+    "lib",
     "dist",
     "module-template",
     "LICENSE.md",
