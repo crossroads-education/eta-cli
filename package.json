@@ -21,6 +21,7 @@
     "README.md"
   ],
   "dependencies": {
+    "@xroadsed/eta": "^2.5.1",
     "chai": "^4.1.2",
     "commander": "^2.11.0",
     "fs-extra": "^4.0.1",

@@ -5,10 +5,10 @@ import * as os from "os";
 import * as path from "path";
 import * as recursiveReaddirCallback from "recursive-readdir";
 import * as util from "util";
-import { ModuleConfiguration } from "./interfaces/ModuleConfiguration";
+import ModuleConfiguration from "@xroadsed/eta/server/api/interfaces/ModuleConfiguration";
 
 export * from "./interfaces/ActionMetadata";
-export * from "./interfaces/ModuleConfiguration";
+export { default as ModuleConfiguration } from "@xroadsed/eta/server/api/interfaces/ModuleConfiguration";
 
 export const CLI_DIR = path.join(__dirname, "../..").replace(/\\/g, "/");
 export const CLI_VERSION: string = fs.readJSONSync(CLI_DIR + "/package.json").version;
