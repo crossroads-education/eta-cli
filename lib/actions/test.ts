@@ -5,7 +5,10 @@ export default async function execute(args: string[], logError = true): Promise<
     if (!shouldLogStandardOutput) console.log("Running tests on Eta core...");
     try {
         const result = await lib.exec(`node ${lib.MOCHA_PATH} --recursive`, {
-            cwd: lib.WORKING_DIR
+            cwd: lib.WORKING_DIR,
+            env: {
+                "ETA_logger_outputToConsole": "false"
+            }
         });
         if (result.stderr) {
             process.stderr.write(result.stderr);
