@@ -1,6 +1,6 @@
 {
   "name": "@xroadsed/eta-cli",
-  "version": "1.2.0-a.1",
+  "version": "1.2.0-a.2",
   "description": "CLI for Eta MVC server.",
   "homepage": "http://github.com/crossroads-education/eta-cli/",
   "repository": "git://github.com:crossroads-education/eta-cli.git",
