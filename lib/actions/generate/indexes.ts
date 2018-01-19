@@ -196,7 +196,13 @@ export default async function execute(args: string[]): Promise<boolean> {
         }
         await Promise.all(promises);
     } else {
-        await fs.writeFile(lib.WORKING_DIR + "/db.ts", "export const _ = true;");
+        await fs.writeFile(lib.WORKING_DIR + "/db.ts", `export const _ = true;
+export class RepositoryManager {
+    private name: string;
+    public constructor(name: string) {
+        this.name = name;
+    }
+}`);
     }
     return true;
 }
