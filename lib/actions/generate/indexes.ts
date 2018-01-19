@@ -202,7 +202,8 @@ export class RepositoryManager {
     public constructor(name: string) {
         this.name = name;
     }
-}`);
+}
+export default RepositoryManager;`);
     }
     return true;
 }
