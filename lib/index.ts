@@ -17,6 +17,7 @@ export const CLI_DIR = path.join(__dirname, "../..").replace(/\\/g, "/");
 export const CLI_VERSION: string = fs.readJSONSync(CLI_DIR + "/package.json").version;
 export const DIST_DIR = path.join(CLI_DIR, "dist");
 export const HOME_DIR = os.homedir().replace(/\\/g, "/");
+export const IN_ETA_ROOT = true;
 export const MOCHA_PATH = path.dirname(require.resolve("mocha")) + "/bin/mocha";
 export const TSC_PATH = path.dirname(require.resolve("typescript")) + "/../bin/tsc";
 export const TSLINT_PATH = path.dirname(require.resolve("tslint")) + "/../bin/tslint";
@@ -30,6 +31,11 @@ export const github = new Github({
     protocol: "https"
 });
 export const recursiveReaddir: (path: string) => Promise<string[]> = <any>util.promisify(recursiveReaddirCallback);
+
+export function getWorkingModuleName(): string {
+    const tokens: string[] = process.cwd().replace(/\\/g, "/").split("/");
+    return tokens.reverse()[tokens.reverse().findIndex(t => t === "modules") + 1];
+}
 
 export async function forEachClientJS(moduleNames: string[], worker: (jsDir: string) => Promise<boolean>): Promise<boolean> {
     if (moduleNames.length === 0) {

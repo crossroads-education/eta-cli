@@ -15,6 +15,10 @@ async function compile(jsDir: string): Promise<boolean> {
 }
 
 export default async function execute(moduleNames: string[]): Promise<boolean> {
+    const workingModuleName = lib.getWorkingModuleName();
+    if (moduleNames.length === 0 && !lib.IN_ETA_ROOT && workingModuleName !== undefined) {
+        moduleNames.push(workingModuleName);
+    }
     console.log("Compiling client-side JS...");
     return lib.forEachClientJS(moduleNames, compile);
 }

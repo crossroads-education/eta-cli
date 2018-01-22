@@ -3,6 +3,10 @@ import * as path from "path";
 import * as lib from "../..";
 
 export default async function execute(args: string[]): Promise<boolean> {
+    const workingModuleName = lib.getWorkingModuleName();
+    if (args.length === 1 && !lib.IN_ETA_ROOT && workingModuleName !== undefined) {
+        args.splice(0, 0, workingModuleName);
+    }
     const moduleName: string = args[0];
     const modelName: string = args[1];
     console.log(`Generating model "${modelName}" in ${moduleName}...`);

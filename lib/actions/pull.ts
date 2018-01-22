@@ -6,6 +6,10 @@ import compileServer from "./compile/server";
 import generateIndexes from "./generate/indexes";
 
 export default async function execute(moduleNames: string[]): Promise<boolean> {
+    const workingModuleName = lib.getWorkingModuleName();
+    if (moduleNames.length === 0 && !lib.IN_ETA_ROOT && workingModuleName !== undefined) {
+        moduleNames.push(workingModuleName);
+    }
     console.log("Pulling " + ((moduleNames.length > 0) ? moduleNames.join(", ") : "all modules..."));
     if (moduleNames.length === 0) {
         moduleNames = await fs.readdir(lib.WORKING_DIR + "/modules");

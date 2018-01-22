@@ -36,7 +36,9 @@ async function checkWorkingDir(): Promise<void> {
         console.error("Please run the Eta CLI tool in the directory of an Eta v2.6+ instance.");
         process.exit(1);
     }
-    (<any>lib).WORKING_DIR = tokens.slice(0, i).join("/");
+    const newWorkingDir = tokens.slice(0, i).join("/");
+    (<any>lib).IN_ETA_ROOT = newWorkingDir === lib.WORKING_DIR;
+    (<any>lib).WORKING_DIR = newWorkingDir;
 }
 
 export default async function main(args: string[]): Promise<boolean> {
