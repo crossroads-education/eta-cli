@@ -12,7 +12,7 @@ export default async function execute(args: string[]): Promise<boolean> {
     }
     console.log("Initializing module " + moduleName + "...");
     await fs.mkdirp(moduleDir);
-    await fs.copy(lib.CLI_DIR + "/module-template", moduleDir + "/", { recursive: true });
+    await fs.copy(lib.CLI_DIR + "/templates/module", moduleDir + "/", { recursive: true });
     const fixJsonName = (obj: any) => {
         obj.name = moduleName;
         return obj;
