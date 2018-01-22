@@ -34,6 +34,7 @@ export default async function execute(args: string[]): Promise<boolean> {
         info.name = moduleName + "-js";
         return info;
     });
+    await lib.exec("npm i", { cwd: jsDir });
     await generateIndexes([]);
     await compileClient([moduleName]);
     return true;
