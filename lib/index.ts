@@ -32,6 +32,19 @@ export const github = new Github({
 });
 export const recursiveReaddir: (path: string) => Promise<string[]> = <any>util.promisify(recursiveReaddirCallback);
 
+export function question(query: string): Promise<string> {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    return new Promise((resolve, reject) => {
+        rl.question(query, answer => {
+            rl.close();
+            resolve(answer);
+        });
+    });
+}
+
 export function getWorkingModuleName(): string {
     const tokens: string[] = process.cwd().replace(/\\/g, "/").split("/");
     return tokens.reverse()[tokens.reverse().findIndex(t => t === "modules") + 1];
@@ -68,17 +81,8 @@ export async function transformJsonFile<T, U>(filename: string, worker: (origina
 async function setupGithubToken(): Promise<void> {
     let config: { githubToken?: string; } = {};
     if (!await fs.pathExists(HOME_DIR + "/.etaconfig")) {
-        const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
-        await (new Promise((resolve, reject) => {
-            console.log("Your Github personal access token can be created with this guide: https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/");
-            rl.question("Enter your Github personal access token: ", token => {
-                config.githubToken = token;
-                resolve();
-            });
-        }));
+        console.log("Your Github personal access token can be created with this guide: https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/");
+        config.githubToken = await question("Enter your Github personal access token: ");
         await fs.writeJSON(HOME_DIR + "/.etaconfig", config);
     } else {
         config = await fs.readJSON(HOME_DIR + "/.etaconfig");
