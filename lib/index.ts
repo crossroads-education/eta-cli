@@ -1,10 +1,13 @@
 import * as childProcess from "child_process";
 import * as fs from "fs-extra";
 import * as Github from "github";
+import * as _ from "lodash";
 import * as os from "os";
 import * as path from "path";
+import * as readline from "readline";
 import * as recursiveReaddirCallback from "recursive-readdir";
 import * as util from "util";
+import { ActionMetadata } from "./interfaces/ActionMetadata";
 import ModuleConfiguration from "@xroadsed/eta/server/api/interfaces/ModuleConfiguration";
 
 export * from "./interfaces/ActionMetadata";
@@ -54,4 +57,47 @@ export async function transformJsonFile<T, U>(filename: string, worker: (origina
     const newContents: U = worker(contents);
     await fs.writeFile(filename, JSON.stringify(newContents, undefined, 2));
     return newContents;
+}
+
+async function setupGithubToken(): Promise<void> {
+    let config: { githubToken?: string; } = {};
+    if (!await fs.pathExists(HOME_DIR + "/.etaconfig")) {
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+        await (new Promise((resolve, reject) => {
+            console.log("Your Github personal access token can be created with this guide: https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/");
+            rl.question("Enter your Github personal access token: ", token => {
+                config.githubToken = token;
+                resolve();
+            });
+        }));
+        await fs.writeJSON(HOME_DIR + "/.etaconfig", config);
+    } else {
+        config = await fs.readJSON(HOME_DIR + "/.etaconfig");
+    }
+    github.authenticate({
+        "type": "token",
+        "token": config.githubToken
+    });
+}
+
+export async function executeCommand(metadataPath: string, actionParams: string[]): Promise<boolean> {
+    const actionPath = DIST_DIR + "/lib/actions/" + metadataPath + ".json";
+    const metadata: ActionMetadata = _.defaults<ActionMetadata, ActionMetadata>(await fs.readJSON(actionPath), {
+        requiresGithubToken: false,
+        requiredParamCount: 0,
+        redirect: undefined,
+        usage: ""
+    });
+    if (metadata.redirect) return await executeCommand(metadata.redirect.replace(/\ /g, "/"), actionParams);
+    if (metadata.requiresGithubToken) await setupGithubToken();
+    if (actionParams.length < metadata.requiredParamCount) {
+        console.error("Usage: eta " + metadataPath.replace(/\//g, " ") + " " + metadata.usage);
+        return false;
+    }
+    const action: (args: string[]) => Promise<boolean> = require(actionPath.slice(0, -2)).default;
+    if (!action) throw new Error(`Internal error: invalid action defined for "${metadataPath.replace(/\//g, " ")}"`);
+    return await action(actionParams);
 }

@@ -5,33 +5,8 @@ import * as commander from "commander";
 import * as fs from "fs-extra";
 import * as lib from "./lib";
 import * as path from "path";
-import * as readline from "readline";
 import * as request from "request-promise";
 import * as semver from "semver";
-
-async function setupGithubToken(): Promise<void> {
-    let config: { githubToken?: string; } = {};
-    if (!await fs.pathExists(lib.HOME_DIR + "/.etaconfig")) {
-        const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
-        await (new Promise((resolve, reject) => {
-            console.log("Your Github personal access token can be created with this guide: https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/");
-            rl.question("Enter your Github personal access token: ", token => {
-                config.githubToken = token;
-                resolve();
-            });
-        }));
-        await fs.writeJSON(lib.HOME_DIR + "/.etaconfig", config);
-    } else {
-        config = await fs.readJSON(lib.HOME_DIR + "/.etaconfig");
-    }
-    lib.github.authenticate({
-        "type": "token",
-        "token": config.githubToken
-    });
-}
 
 async function checkCurrentVersion(): Promise<void> {
     const packageInfo: {
@@ -44,6 +19,26 @@ async function checkCurrentVersion(): Promise<void> {
     console.warn("\tLatest version: " + latestVersion);
 }
 
+async function checkWorkingDir(): Promise<void> {
+    const tokens = lib.WORKING_DIR.split("/");
+    let isValid = false;
+    let i = tokens.length;
+    for (; i > 0; i--) {
+        const workingDir = tokens.slice(0, i).join("/");
+        try {
+            if ((await fs.readJSON(workingDir + "/package.json")).name === "@xroadsed/eta") {
+                isValid = true;
+                break;
+            }
+        } catch { }
+    }
+    if (!isValid) {
+        console.error("Please run the Eta CLI tool in the directory of an Eta v2.6+ instance.");
+        process.exit(1);
+    }
+    (<any>lib).WORKING_DIR = tokens.slice(0, i).join("/");
+}
+
 export default async function main(args: string[]): Promise<boolean> {
     if (args.length === 0) {
         console.error("Usage: eta <subcommand> [options]");
@@ -53,36 +48,18 @@ export default async function main(args: string[]): Promise<boolean> {
         console.log("Project Eta CLI: v" + (await fs.readJSON(lib.CLI_DIR + "/package.json")).version);
         return true;
     }
-    await checkCurrentVersion();
-    if (!await fs.pathExists(lib.WORKING_DIR + "/package.json") || (await fs.readJSON(lib.WORKING_DIR + "/package.json")).name !== "@xroadsed/eta") {
-        console.error("Please run the Eta CLI tool in the root directory of an Eta v2.2+ instance.");
-        return false;
-    }
+    const start = Date.now();
+    await Promise.all([checkCurrentVersion(), checkWorkingDir()]);
     let actionPath: string = undefined;
     let i: number;
     for (i = args.length; i > 0; i--) {
-        actionPath = lib.DIST_DIR + "/lib/actions/" + args.slice(0, i).join("/") + ".json";
-        if (await fs.pathExists(actionPath)) break;
+        actionPath = args.slice(0, i).join("/");
+        if (await fs.pathExists(lib.DIST_DIR + "/lib/actions/" + actionPath + ".json")) break;
         else actionPath = undefined;
     }
     if (!actionPath) {
         console.error("Usage: eta <subcommand> [options]");
         return false;
     }
-    const metadata: lib.ActionMetadata = _.defaults<lib.ActionMetadata, lib.ActionMetadata>(await fs.readJSON(actionPath), {
-        requiresGithubToken: false,
-        requiredParamCount: 0,
-        redirect: undefined,
-        usage: ""
-    });
-    if (metadata.redirect) return await main(metadata.redirect.split(" "));
-    if (metadata.requiresGithubToken) await setupGithubToken();
-    const actionParams: string[] = args.splice(i);
-    if (actionParams.length < metadata.requiredParamCount) {
-        console.error("Usage: eta " + args.slice(0, i).join(" ") + " " + metadata.usage);
-        return false;
-    }
-    const action: (args: string[]) => Promise<boolean> = require(actionPath.slice(0, -2)).default;
-    if (!action) throw new Error(`Internal error: invalid action defined for "${args.join(" ")}"`);
-    return await action(actionParams);
+    return lib.executeCommand(actionPath, args.slice(i));
 }
