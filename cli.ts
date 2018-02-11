@@ -50,7 +50,6 @@ export default async function main(args: string[]): Promise<boolean> {
         console.log("Project Eta CLI: v" + (await fs.readJSON(lib.CLI_DIR + "/package.json")).version);
         return true;
     }
-    const start = Date.now();
     await Promise.all([checkCurrentVersion(), checkWorkingDir()]);
     let actionPath: string = undefined;
     let i: number;
