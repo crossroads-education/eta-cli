@@ -9,7 +9,7 @@ class ModuleInstaller {
     private url: string;
     private name: string;
     private path: string;
-    private config: lib.ModuleConfiguration;
+    private config: {[key: string]: any};
 
     public constructor(url: string) {
         this.url = url;

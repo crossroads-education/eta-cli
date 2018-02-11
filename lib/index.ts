@@ -8,10 +8,8 @@ import * as readline from "readline";
 import * as recursiveReaddirCallback from "recursive-readdir";
 import * as util from "util";
 import { ActionMetadata } from "./interfaces/ActionMetadata";
-import ModuleConfiguration from "@xroadsed/eta/server/api/interfaces/ModuleConfiguration";
 
 export * from "./interfaces/ActionMetadata";
-export { default as ModuleConfiguration } from "@xroadsed/eta/server/api/interfaces/ModuleConfiguration";
 
 export const CLI_DIR = path.join(__dirname, "../..").replace(/\\/g, "/");
 export const CLI_VERSION: string = fs.readJSONSync(CLI_DIR + "/package.json").version;
@@ -57,7 +55,7 @@ export async function forEachClientJS(moduleNames: string[], worker: (jsDir: str
     let success = true;
     for (const moduleName of moduleNames) {
         const moduleDir: string = WORKING_DIR + "/modules/" + moduleName;
-        const moduleConfig: ModuleConfiguration = await fs.readJSON(moduleDir + "/eta.json");
+        const moduleConfig = await fs.readJSON(moduleDir + "/eta.json");
         for (const staticDir of moduleConfig.dirs.staticFiles) {
             const jsDir = `${moduleDir}/${staticDir}/js`;
             if (!(await fs.pathExists(jsDir + "/tsconfig.json"))) {
