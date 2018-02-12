@@ -25,8 +25,8 @@ export default async function execute(args: string[]): Promise<boolean> {
         fs.mkdirp(jsDir),
         fs.copy(lib.CLI_DIR + "/templates/clientjs", jsDir + "/", { recursive: true }),
         lib.transformJsonFile(moduleDir + "/eta.json", info => {
-            if ((info.dirs.static || []).length !== 0) return info;
-            info.dirs.static = ["static"];
+            if ((info.dirs.staticFiles || []).indexOf("static") !== -1) return info;
+            info.dirs.staticFiles = (info.dirs.staticFiles || []).concat(["static"]).sort();
             return info;
         })
     ]);
