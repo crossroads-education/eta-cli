@@ -144,6 +144,9 @@ async function generateModels(): Promise<void> {
     private name: string;
     public constructor(name: string) {
         this.name = name;
+    }
+    public get connection(): orm.Connection {
+        return orm.getConnection(this.name);
     }`);
     for (const item of repositoryItems) {
         dbLines.push(`    public get ${_.camelCase(item.name)}(): orm.Repository<${item.name}> {
@@ -196,11 +199,14 @@ export default async function execute(args: string[]): Promise<boolean> {
         }
         await Promise.all(promises);
     } else {
-        await fs.writeFile(lib.WORKING_DIR + "/db.ts", `export const _ = true;
+        await fs.writeFile(lib.WORKING_DIR + "/db.ts", `import * as orm from "typeorm";
 export class RepositoryManager {
     private name: string;
     public constructor(name: string) {
         this.name = name;
+    }
+    public get connection(): orm.Connection {
+        return orm.getConnection(this.name);
     }
 }
 export default RepositoryManager;`);
