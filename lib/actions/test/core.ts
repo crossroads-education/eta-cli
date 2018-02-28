@@ -1,4 +1,4 @@
-import * as lib from "..";
+import * as lib from "../..";
 
 export default async function execute(args: string[], logError = true): Promise<boolean> {
     const shouldLogStandardOutput = args.includes("--standard-output");
