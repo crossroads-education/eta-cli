@@ -4,6 +4,7 @@ import * as Github from "github";
 import * as _ from "lodash";
 import * as os from "os";
 import * as path from "path";
+import * as pg from "pg";
 import * as readline from "readline";
 import * as recursiveReaddirCallback from "recursive-readdir";
 import * as util from "util";
@@ -108,4 +109,49 @@ export async function executeCommand(metadataPath: string, actionParams: string[
     const action: (args: string[]) => Promise<boolean> = require(actionPath.slice(0, -2)).default;
     if (!action) throw new Error(`Internal error: invalid action defined for "${metadataPath.replace(/\//g, " ")}"`);
     return await action(actionParams);
+}
+
+export async function connectDB(): Promise<pg.Client> {
+    const { host, port, username, password, database }: {
+        host: string;
+        port: number;
+        username: string;
+        password: string;
+        database: string;
+    } = await fs.readJSON(WORKING_DIR + "/config/global/db.json");
+    return new pg.Client({
+        host, port, password, database,
+        user: username
+    });
+}
+
+export async function startChildServer(shouldLogAll: boolean): Promise<childProcess.ChildProcess> {
+    const serverProcess = childProcess.spawn("node", [`${WORKING_DIR}/server.js`], {
+        stdio: ["pipe", "pipe", "pipe", "ipc"]
+    });
+    const serverStartResult = await new Promise((resolve, reject) => {
+        serverProcess.stdout.on("data", data => {
+            data = data.toString();
+            if (shouldLogAll || data.split(" ")[2] === "[ERROR]") {
+                process.stdout.write(data);
+            }
+            if (data.includes("[INFO] Web server") && data.includes("started on port")) {
+                resolve(true);
+            }
+        });
+        serverProcess.stderr.on("data", data => {
+            process.stderr.write(data.toString());
+            if (!serverStartResult) reject(new Error(data.toString()));
+        });
+    });
+    return serverProcess;
+}
+
+export async function sendChildMessage(process: childProcess.ChildProcess, msg: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        process.on("message", response => {
+            if (response === msg) resolve();
+        });
+        process.send(msg);
+    });
 }
