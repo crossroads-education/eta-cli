@@ -9,7 +9,6 @@ export default async function execute(args: string[]): Promise<boolean> {
         });
     }
     console.warn("WARNING: Resetting database!");
-    await db.connect();
     let result = await db.query(`select tablename from pg_tables where schemaname = 'public'`);
     await db.query(result.rows.map(r => `drop table if exists "${r.tablename}" cascade`).join("; "));
     result = await db.query(`select relname from pg_class where relkind = 'S'`);

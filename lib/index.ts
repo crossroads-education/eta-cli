@@ -119,10 +119,12 @@ export async function connectDB(): Promise<pg.Client> {
         password: string;
         database: string;
     } = await fs.readJSON(WORKING_DIR + "/config/global/db.json");
-    return new pg.Client({
+    const client = new pg.Client({
         host, port, password, database,
         user: username
     });
+    await client.connect();
+    return client;
 }
 
 export async function startChildServer(shouldLogAll: boolean): Promise<childProcess.ChildProcess> {
