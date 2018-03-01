@@ -27,7 +27,7 @@ export default async function execute(args: string[]): Promise<boolean> {
     const db = await lib.connectDB();
     let apiToken = "";
     if (shouldReset) {
-        const dbResult = await db.query("select user_id as id from user_position limit 1");
+        const dbResult = await db.query(`select user_id as id from user_position where start <= current_date and ("end" is null or "end" > current_date) limit 1`);
         apiToken = crypto.randomBytes(16).toString("hex");
         await db.query(`update "user" set "api_token" = $1::text where "id" = $2::int`, [apiToken, dbResult.rows[0].id]);
     } else {
