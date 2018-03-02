@@ -134,7 +134,7 @@ export async function startChildServer(shouldLogAll: boolean): Promise<childProc
     const serverStartResult = await new Promise((resolve, reject) => {
         serverProcess.stdout.on("data", data => {
             data = data.toString();
-            if (shouldLogAll || data.split(" ")[2] === "[ERROR]") {
+            if (shouldLogAll) {
                 process.stdout.write(data);
             }
             if (data.includes("[INFO] Web server") && data.includes("started on port")) {
