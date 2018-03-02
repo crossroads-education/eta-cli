@@ -16,7 +16,7 @@ export default async function execute(args: string[]): Promise<boolean> {
     const shouldLogAll = args.includes("--log-all");
     if (shouldReset) await resetDB(["--no-wait"]);
     const serverProcess = await lib.startChildServer(shouldLogAll);
-    if (shouldReset) await seedDB([serverProcess]);
+    if (shouldReset) await seedDB([serverProcess, "--no-log"]);
     const mocha = new Mocha();
     const moduleDir = lib.WORKING_DIR + "/modules/";
     (await Promise.all<string[]>((await fs.readdir(moduleDir)).map(async f => {
