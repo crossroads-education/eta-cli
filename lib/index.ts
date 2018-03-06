@@ -129,9 +129,11 @@ export async function connectDB(): Promise<pg.Client> {
 
 export async function startChildServer(shouldLogAll: boolean): Promise<childProcess.ChildProcess> {
     const serverProcess = childProcess.spawn("node", [`${WORKING_DIR}/server.js`], {
-        stdio: ["pipe", "pipe", "pipe", "ipc"]
+        stdio: ["pipe", "pipe", "pipe", "ipc"],
+        cwd: WORKING_DIR
     });
-    const serverStartResult = await new Promise((resolve, reject) => {
+    let serverStartResult = false;
+    serverStartResult = await new Promise<boolean>((resolve, reject) => {
         serverProcess.stdout.on("data", data => {
             data = data.toString();
             if (shouldLogAll) {
@@ -142,8 +144,8 @@ export async function startChildServer(shouldLogAll: boolean): Promise<childProc
             }
         });
         serverProcess.stderr.on("data", data => {
-            process.stderr.write(data.toString());
-            if (!serverStartResult) reject(new Error(data.toString()));
+            if (serverStartResult) process.stderr.write(data.toString());
+            else reject(new Error(data.toString()));
         });
     });
     return serverProcess;
