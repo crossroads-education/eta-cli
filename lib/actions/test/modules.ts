@@ -34,6 +34,7 @@ export default async function execute(args: string[]): Promise<boolean> {
         const dbResult = await db.query(`select api_token as "apiToken" from "user" where api_token is not null limit 1`);
         apiToken = dbResult.rows[0].apiToken;
     }
+    require(lib.WORKING_DIR + "/helpers/require.js"); // set up support for require("@eta/...")
     process.env.API_TOKEN = apiToken;
     return await new Promise<boolean>((resolve, reject) => {
         mocha.run(failureCount => {
