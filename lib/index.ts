@@ -159,3 +159,15 @@ export async function sendChildMessage(process: childProcess.ChildProcess, msg: 
         process.send(msg);
     });
 }
+
+export async function getNearestFile(tokens: string[], transform: (filename: string) => string = s => s): Promise<string> {
+    let i: number;
+    let path = undefined;
+    for (i = tokens.length; i > 0; i--) {
+        path = tokens.slice(0, i).join("/");
+        if (await fs.pathExists(transform(path))) break;
+        else path = undefined;
+    }
+    if (path !== undefined) tokens.splice(0, i);
+    return path;
+}

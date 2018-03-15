@@ -51,16 +51,10 @@ export default async function main(args: string[]): Promise<boolean> {
         return true;
     }
     await Promise.all([checkCurrentVersion(), checkWorkingDir()]);
-    let actionPath: string = undefined;
-    let i: number;
-    for (i = args.length; i > 0; i--) {
-        actionPath = args.slice(0, i).join("/");
-        if (await fs.pathExists(lib.DIST_DIR + "/lib/actions/" + actionPath + ".json")) break;
-        else actionPath = undefined;
-    }
-    if (!actionPath) {
+    const actionPath: string = await lib.getNearestFile(args, f => `${lib.DIST_DIR}/lib/actions/${f}.json`);
+    if (actionPath === undefined) {
         console.error("Usage: eta <subcommand> [options]");
         return false;
     }
-    return lib.executeCommand(actionPath, args.slice(i));
+    return lib.executeCommand(actionPath, args);
 }
