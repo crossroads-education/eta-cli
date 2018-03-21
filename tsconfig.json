@@ -1,23 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "outDir": "./dist/",
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
     "module": "commonjs",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "newLine": "lf",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "rootDir": "."
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./lib",
+    "pretty": true,
+    "rootDirs": [
+      "./src"
+    ],
+    "strict": true,
+    "target": "es2017"
   },
-  "compileOnSave": true,
-  "buildOnSave": false,
-  "exclude": ["node_modules"],
-  "atom": {
-    "rewriteTsconfig": false
-  }
+  "include": [
+    "./src/**/*"
+  ]
 }
