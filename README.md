@@ -16,7 +16,7 @@ $ npm install -g @xroadsed/eta-cli
 $ eta COMMAND
 running command...
 $ eta (-v|--version|version)
-@xroadsed/eta-cli/1.3.0-a6 win32-x64 node-v8.9.1
+@xroadsed/eta-cli/1.3.0-a7 win32-x64 node-v8.9.1
 $ eta --help [COMMAND]
 USAGE
   $ eta COMMAND
@@ -32,6 +32,8 @@ USAGE
 * [eta db:reset](#eta-dbreset)
 * [eta db:seed](#eta-dbseed)
 * [eta foreach [COMMAND]](#eta-foreach-command)
+* [eta generate:clientjs MODULE](#eta-generateclientjs-module)
+* [eta generate:indexes](#eta-generateindexes)
 * [eta help [COMMAND]](#eta-help-command)
 
 ## eta compile:client
@@ -46,7 +48,7 @@ OPTIONS
   -m, --modules=modules  modules to compile client-side JS for (comma-separated)
 ```
 
-_See code: [lib/commands/compile/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/compile/client.js)_
+_See code: [lib/commands/compile/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a7/lib/commands/compile/client.js)_
 
 ## eta compile:server
 
@@ -60,7 +62,7 @@ ALIASES
   $ eta compile
 ```
 
-_See code: [lib/commands/compile/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/compile/server.js)_
+_See code: [lib/commands/compile/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a7/lib/commands/compile/server.js)_
 
 ## eta config:get [KEY]
 
@@ -74,7 +76,7 @@ ARGUMENTS
   KEY  The key to get (including domain)
 ```
 
-_See code: [lib/commands/config/get.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/config/get.js)_
+_See code: [lib/commands/config/get.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a7/lib/commands/config/get.js)_
 
 ## eta config:set [KEY] [VALUE]
 
@@ -89,7 +91,7 @@ ARGUMENTS
   VALUE  The value to set
 ```
 
-_See code: [lib/commands/config/set.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/config/set.js)_
+_See code: [lib/commands/config/set.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a7/lib/commands/config/set.js)_
 
 ## eta db:reset
 
@@ -103,7 +105,7 @@ OPTIONS
   -n, --no-wait  Don't wait 3 seconds before resetting
 ```
 
-_See code: [lib/commands/db/reset.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/db/reset.js)_
+_See code: [lib/commands/db/reset.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a7/lib/commands/db/reset.js)_
 
 ## eta db:seed
 
@@ -117,7 +119,7 @@ OPTIONS
   -n, --no-log  Don't log anything from the Eta instance
 ```
 
-_See code: [lib/commands/db/seed.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/db/seed.js)_
+_See code: [lib/commands/db/seed.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a7/lib/commands/db/seed.js)_
 
 ## eta foreach [COMMAND]
 
@@ -134,7 +136,32 @@ OPTIONS
   -c, --clientJS=clientJS  run in client-side JS directories only
 ```
 
-_See code: [lib/commands/foreach.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/foreach.js)_
+_See code: [lib/commands/foreach.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a7/lib/commands/foreach.js)_
+
+## eta generate:clientjs MODULE
+
+generate new client-side JS setup
+
+```
+USAGE
+  $ eta generate:clientjs MODULE
+
+ARGUMENTS
+  MODULE  module name to generate client-side JS for
+```
+
+_See code: [lib/commands/generate/clientjs.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a7/lib/commands/generate/clientjs.js)_
+
+## eta generate:indexes
+
+generate index files
+
+```
+USAGE
+  $ eta generate:indexes
+```
+
+_See code: [lib/commands/generate/indexes.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a7/lib/commands/generate/indexes.js)_
 
 ## eta help [COMMAND]
 
