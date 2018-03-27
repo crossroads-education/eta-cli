@@ -2,7 +2,8 @@ import * as fs from "fs-extra";
 import * as oclif from "@oclif/config";
 import * as lib from "../lib";
 
-const hook: oclif.Hook<"init"> = async function() {
+const hook: oclif.Hook<"init"> = async function(options) {
+    console.log("options", options);
     const tokens = lib.WORKING_DIR.split("/");
     let isValid = false;
     let i = tokens.length;
