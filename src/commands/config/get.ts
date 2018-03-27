@@ -2,17 +2,17 @@ import * as fs from "fs-extra";
 import * as lib from "../../lib";
 import * as oclif from "@oclif/command";
 
-export default class ConfigSet extends oclif.Command {
+export default class ConfigGet extends oclif.Command {
+    static description = "Logs a config variable's value";
     static examples = [];
-    static flags = {
-    };
+    static flags = {};
     static args = [{
         name: "key",
-        description: "The key to set (including domain)"
+        description: "The key to get (including domain)"
     }];
 
     async run() {
-        const { args } = this.parse(ConfigSet);
+        const { args } = this.parse(ConfigGet);
         const keyTokens: string[] = args.key.split(".");
         const configPath = (await lib.fs.getNearestFile(keyTokens, f => `${lib.WORKING_DIR}/config/${f}.json`));
         if (configPath === undefined) {

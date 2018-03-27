@@ -3,6 +3,7 @@ import * as _ from "lodash";
 import * as oclif from "@oclif/command";
 
 export default class ConfigSet extends oclif.Command {
+    static description = "Sets a config variable";
     static examples = [];
     static flags = {
     };
