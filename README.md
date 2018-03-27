@@ -16,7 +16,7 @@ $ npm install -g @xroadsed/eta-cli
 $ eta COMMAND
 running command...
 $ eta (-v|--version|version)
-@xroadsed/eta-cli/1.3.0-a5 win32-x64 node-v8.9.1
+@xroadsed/eta-cli/1.3.0-a6 win32-x64 node-v8.9.1
 $ eta --help [COMMAND]
 USAGE
   $ eta COMMAND
@@ -25,11 +25,60 @@ USAGE
 <!-- usagestop -->
 <!-- usagestop -->
 <!-- commands -->
+* [eta compile:client](#eta-compileclient)
+* [eta compile:server](#eta-compileserver)
+* [eta config:get [KEY]](#eta-configget-key)
 * [eta config:set [KEY] [VALUE]](#eta-configset-key-value)
+* [eta db:reset](#eta-dbreset)
+* [eta db:seed](#eta-dbseed)
 * [eta foreach [COMMAND]](#eta-foreach-command)
 * [eta help [COMMAND]](#eta-help-command)
 
+## eta compile:client
+
+compile client-side Typescript
+
+```
+USAGE
+  $ eta compile:client
+
+OPTIONS
+  -m, --modules=modules  modules to compile client-side JS for (comma-separated)
+```
+
+_See code: [lib/commands/compile/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/compile/client.js)_
+
+## eta compile:server
+
+compile server-side Typescript
+
+```
+USAGE
+  $ eta compile:server
+
+ALIASES
+  $ eta compile
+```
+
+_See code: [lib/commands/compile/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/compile/server.js)_
+
+## eta config:get [KEY]
+
+log a config variable's value
+
+```
+USAGE
+  $ eta config:get [KEY]
+
+ARGUMENTS
+  KEY  The key to get (including domain)
+```
+
+_See code: [lib/commands/config/get.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/config/get.js)_
+
 ## eta config:set [KEY] [VALUE]
+
+set a config variable
 
 ```
 USAGE
@@ -40,7 +89,35 @@ ARGUMENTS
   VALUE  The value to set
 ```
 
-_See code: [src/commands/config/set.ts](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a5/src/commands/config/set.ts)_
+_See code: [lib/commands/config/set.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/config/set.js)_
+
+## eta db:reset
+
+reset the database (using global connection info)
+
+```
+USAGE
+  $ eta db:reset
+
+OPTIONS
+  -n, --no-wait  Don't wait 3 seconds before resetting
+```
+
+_See code: [lib/commands/db/reset.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/db/reset.js)_
+
+## eta db:seed
+
+seed the database (using global connection info)
+
+```
+USAGE
+  $ eta db:seed
+
+OPTIONS
+  -n, --no-log  Don't log anything from the Eta instance
+```
+
+_See code: [lib/commands/db/seed.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/db/seed.js)_
 
 ## eta foreach [COMMAND]
 
@@ -57,7 +134,7 @@ OPTIONS
   -c, --clientJS=clientJS  run in client-side JS directories only
 ```
 
-_See code: [src/commands/foreach.ts](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a5/src/commands/foreach.ts)_
+_See code: [lib/commands/foreach.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a6/lib/commands/foreach.js)_
 
 ## eta help [COMMAND]
 
