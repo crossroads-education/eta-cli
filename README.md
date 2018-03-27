@@ -16,7 +16,7 @@ $ npm install -g @xroadsed/eta-cli
 $ eta COMMAND
 running command...
 $ eta (-v|--version|version)
-@xroadsed/eta-cli/1.3.0-a4 win32-x64 node-v8.9.1
+@xroadsed/eta-cli/1.3.0-a5 win32-x64 node-v8.9.1
 $ eta --help [COMMAND]
 USAGE
   $ eta COMMAND
@@ -25,8 +25,22 @@ USAGE
 <!-- usagestop -->
 <!-- usagestop -->
 <!-- commands -->
+* [eta config:set [KEY] [VALUE]](#eta-configset-key-value)
 * [eta foreach [COMMAND]](#eta-foreach-command)
 * [eta help [COMMAND]](#eta-help-command)
+
+## eta config:set [KEY] [VALUE]
+
+```
+USAGE
+  $ eta config:set [KEY] [VALUE]
+
+ARGUMENTS
+  KEY    The key to set (including domain)
+  VALUE  The value to set
+```
+
+_See code: [src/commands/config/set.ts](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a5/src/commands/config/set.ts)_
 
 ## eta foreach [COMMAND]
 
@@ -36,11 +50,14 @@ run a command in each module directory
 USAGE
   $ eta foreach [COMMAND]
 
+ARGUMENTS
+  COMMAND  The command to run in each directory
+
 OPTIONS
   -c, --clientJS=clientJS  run in client-side JS directories only
 ```
 
-_See code: [src/commands/foreach.ts](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a4/src/commands/foreach.ts)_
+_See code: [src/commands/foreach.ts](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a5/src/commands/foreach.ts)_
 
 ## eta help [COMMAND]
 
