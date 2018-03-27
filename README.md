@@ -1,32 +1,62 @@
 # Project Eta CLI
 
-## Installation
-
-Run `npm i -g @xroadsed/eta-cli`.
-
-## Commands
-
+The CLI for managing and developing with [Eta](https://github.com/crossroads-education/eta).
 All commands should be run from the root directory of an Eta instance.
 
-### Compilation / Linting
+[![Version](https://img.shields.io/npm/v/@xroadsed/eta-cli.svg)](https://npmjs.org/package/@xroadsed/eta-cli)
+[![CircleCI](https://circleci.com/gh/crossroads-education/eta-cli/tree/master.svg?style=shield)](https://circleci.com/gh/crossroads-education/eta-cli/tree/master)
 
-- `eta compile:client`: Compiles all client files. (Previously `npm run compile-client`)
-- `eta compile:server`: Compiles all server files. (Previously `npm run compile`)
-- `eta lint:client`: Lints all client files (with `tslint`). (Previously `npm run lint`)
-- `eta lint:server`: Lints all server files (with `tslint`). (Previously `npm run lint-client`)
-- `eta test:server`: Runs all unit tests for Eta core. (Previously `npm run test`)
-- `eta test:modules`: Runs all unit tests for Eta modules.
+<!-- toc -->
+* [Project Eta CLI](#project-eta-cli)
+<!-- tocstop -->
+<!-- tocstop -->
+<!-- usage -->
+```sh-session
+$ npm install -g @xroadsed/eta-cli
+$ eta COMMAND
+running command...
+$ eta (-v|--version|version)
+@xroadsed/eta-cli/1.3.0-a2 win32-x64 node-v8.9.1
+$ eta --help [COMMAND]
+USAGE
+  $ eta COMMAND
+...
+```
+<!-- usagestop -->
+<!-- usagestop -->
+<!-- commands -->
+* [eta foreach [COMMAND]](#eta-foreach-command)
+* [eta help [COMMAND]](#eta-help-command)
 
-### Generation
+## eta foreach [COMMAND]
 
-- `eta generate:controller --module=<module-name> [--name=]<route>`: Generates a controller for `route` in `module-name`.
-- `eta generate:indexes`: Generates indexes and exports. (Previously `npm run generate`)
-- `eta generate:model --module=<module-name> [--name=]<name>`: Generates a model named `name` in `module-name`.
-- `eta generate:module [--name=]<name>`: Generates an empty module named `name`.
+run a command in each module directory
 
-### Setup / Management
+```
+USAGE
+  $ eta foreach [COMMAND]
 
-- `eta install [--url=]<module-url>`: Installs a module (and any dependencies) from the Git URL (or Github "username/repository") provided.
-- `eta pull [module-name]`: Pulls the specified module (or all, if none is specified) from its remote, installs any new NPM modules, re-generates indexes, and compiles.
-- `eta setup`: Sets up a cloned Eta instance.
-- `eta start [fast]`: Regenerates, recompiles, and starts the Eta server. If the `fast` option is supplied, regeneration and recompilation will be skipped.
+OPTIONS
+  -c, --clientJS=clientJS  run in client-side JS directories only
+```
+
+_See code: [src/commands/foreach.ts](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a2/src/commands/foreach.ts)_
+
+## eta help [COMMAND]
+
+display help for eta
+
+```
+USAGE
+  $ eta help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v1.2.1/src/commands/help.ts)_
+<!-- commandsstop -->
+<!-- commandsstop -->
