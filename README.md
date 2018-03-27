@@ -16,7 +16,7 @@ $ npm install -g @xroadsed/eta-cli
 $ eta COMMAND
 running command...
 $ eta (-v|--version|version)
-@xroadsed/eta-cli/1.3.0-a2 win32-x64 node-v8.9.1
+@xroadsed/eta-cli/1.3.0-a3 win32-x64 node-v8.9.1
 $ eta --help [COMMAND]
 USAGE
   $ eta COMMAND
@@ -40,7 +40,7 @@ OPTIONS
   -c, --clientJS=clientJS  run in client-side JS directories only
 ```
 
-_See code: [src/commands/foreach.ts](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a2/src/commands/foreach.ts)_
+_See code: [src/commands/foreach.ts](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a3/src/commands/foreach.ts)_
 
 ## eta help [COMMAND]
 
