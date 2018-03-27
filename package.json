@@ -14,7 +14,8 @@
     "@oclif/plugin-help": "^1.1.6",
     "@oclif/plugin-warn-if-update-available": "^1.2.3",
     "fs-extra": "^5.0.0",
-    "globby": "^8.0.1"
+    "globby": "^8.0.1",
+    "lodash": "^4.17.5"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.2.20",
@@ -22,6 +23,7 @@
     "@oclif/tslint": "^1.0.2",
     "@types/chai": "^4.1.2",
     "@types/fs-extra": "^5.0.1",
+    "@types/lodash": "^4.14.106",
     "@types/mocha": "^2.2.48",
     "@types/node": "^9.4.7",
     "chai": "^4.1.2",

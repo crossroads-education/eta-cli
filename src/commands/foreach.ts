@@ -12,7 +12,10 @@ export default class Foreach extends oclif.Command {
             description: "run in client-side JS directories only"
         })
     };
-    static args = [{ name: "command" }];
+    static args = [{
+        name: "command",
+        description: "The command to run in each directory"
+    }];
 
     async run() {
         const { args } = this.parse(Foreach);
