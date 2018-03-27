@@ -2,6 +2,7 @@ import * as lib from "../../lib";
 import * as oclif from "@oclif/command";
 
 export default class DBSeed extends oclif.Command {
+    static description = "seed the database (using global connection info)";
     static examples = [];
     static flags = {
         "no-log": oclif.flags.boolean({

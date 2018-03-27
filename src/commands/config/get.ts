@@ -3,7 +3,7 @@ import * as lib from "../../lib";
 import * as oclif from "@oclif/command";
 
 export default class ConfigGet extends oclif.Command {
-    static description = "Logs a config variable's value";
+    static description = "log a config variable's value";
     static examples = [];
     static flags = {};
     static args = [{

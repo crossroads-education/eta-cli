@@ -2,6 +2,7 @@ import * as lib from "../../lib";
 import * as oclif from "@oclif/command";
 
 export default class DBReset extends oclif.Command {
+    static description = "reset the database (using global connection info)";
     static examples = [];
     static flags = {
         "no-wait": oclif.flags.boolean({

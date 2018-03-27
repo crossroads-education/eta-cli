@@ -1,7 +1,8 @@
 import * as lib from "../../lib";
 import * as oclif from "@oclif/command";
 
-export default class DBSeed extends oclif.Command {
+export default class CompileServer extends oclif.Command {
+    static description = "compile server-side Typescript";
     static examples = [];
     static flags = {};
     static args = [];
