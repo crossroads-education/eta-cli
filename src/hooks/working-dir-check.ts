@@ -3,7 +3,7 @@ import * as oclif from "@oclif/config";
 import * as lib from "../lib";
 
 const hook: oclif.Hook<"init"> = async function(options) {
-    if (options && options.id === "readme") return;
+    if (options && ["readme", "-v"].includes(options.id!)) return;
     const tokens = lib.WORKING_DIR.split("/");
     let isValid = false;
     let i = tokens.length;
@@ -17,8 +17,7 @@ const hook: oclif.Hook<"init"> = async function(options) {
         } catch { }
     }
     if (!isValid) {
-        console.error("Please run the Eta CLI tool in the directory of an Eta v2.6+ instance.");
-        process.exit(1);
+        return this.error("Please run the Eta CLI tool in the directory of an Eta v2.6+ instance.");
     }
     const newWorkingDir = tokens.slice(0, i).join("/");
     (<any>lib).IN_ETA_ROOT = newWorkingDir === lib.WORKING_DIR;
