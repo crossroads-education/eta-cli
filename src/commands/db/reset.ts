@@ -1,4 +1,3 @@
-import * as fs from "fs-extra";
 import * as lib from "../../lib";
 import * as oclif from "@oclif/command";
 
