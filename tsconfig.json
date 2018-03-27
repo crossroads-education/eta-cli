@@ -4,17 +4,28 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "module": "commonjs",
+    "moduleResolution": "node",
+    "newLine": "lf",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./lib",
+    "preserveConstEnums": true,
     "pretty": true,
     "rootDirs": [
       "./src"
     ],
+    "sourceMap": true,
     "strict": true,
     "target": "es2017"
   },
   "include": [
     "./src/**/*"
-  ]
+  ],
+  "compileOnSave": true,
+  "buildOnSave": false,
+  "atom": {
+    "rewriteTsconfig": false
+  }
 }
