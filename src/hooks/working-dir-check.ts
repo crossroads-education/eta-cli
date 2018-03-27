@@ -3,7 +3,7 @@ import * as oclif from "@oclif/config";
 import * as lib from "../lib";
 
 const hook: oclif.Hook<"init"> = async function(options) {
-    console.log("options", options);
+    if (options && options.id === "readme") return;
     const tokens = lib.WORKING_DIR.split("/");
     let isValid = false;
     let i = tokens.length;
@@ -23,7 +23,6 @@ const hook: oclif.Hook<"init"> = async function(options) {
     const newWorkingDir = tokens.slice(0, i).join("/");
     (<any>lib).IN_ETA_ROOT = newWorkingDir === lib.WORKING_DIR;
     (<any>lib).WORKING_DIR = newWorkingDir;
-    console.log(lib.WORKING_DIR);
 };
 
 export default hook;

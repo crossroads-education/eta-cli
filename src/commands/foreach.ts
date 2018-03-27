@@ -16,7 +16,6 @@ export default class Foreach extends oclif.Command {
 
     async run() {
         const { args } = this.parse(Foreach);
-        console.log(lib.WORKING_DIR);
         let command: string = args.command;
         if (command[0] === '"' && command[command.length - 1] === '"') {
             command = command.slice(1, -1);
