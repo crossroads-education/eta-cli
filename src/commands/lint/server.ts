@@ -1,8 +1,8 @@
 import * as lib from "../../lib";
 import * as oclif from "@oclif/command";
 
-export default class GenerateIndexes extends oclif.Command {
-    static description = "generate index files";
+export default class LintServer extends oclif.Command {
+    static description = "lint server-side Typescript for style errors";
     static flags = {
         "fix": oclif.flags.boolean({
             char: "f",
@@ -13,7 +13,7 @@ export default class GenerateIndexes extends oclif.Command {
     static aliases = ["lint"];
 
     async run() {
-        const { flags } = this.parse(GenerateIndexes);
+        const { flags } = this.parse(LintServer);
         this.log("Linting server-side Typescript...");
         await lib.eta.lint(lib.WORKING_DIR, flags.fix);
     }
