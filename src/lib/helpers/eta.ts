@@ -1,3 +1,5 @@
+import * as constants from "../constants";
+import { exec } from "./promisified";
 import * as fs from "fs-extra";
 import * as path from "path";
 import * as pg from "pg";
@@ -41,5 +43,15 @@ export default class HelperEta {
         const outputFilename = `${moduleDir}/${dirs[0]}/${filename}.ts`;
         await fs.mkdirp(path.dirname(outputFilename));
         await fs.writeFile(outputFilename, body);
+    }
+
+    public static async lint(dir: string, shouldFix: boolean, workingDir = dir) {
+        let command = `node ${constants.TSLINT_PATH} -c ${workingDir}/tslint.json -p tsconfig.json`;
+        if (shouldFix) command += " --fix";
+        try {
+            await exec(command, { cwd: dir });
+        } catch (err) {
+            process.stderr.write(err.stdout);
+        }
     }
 }
