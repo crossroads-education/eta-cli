@@ -1,5 +1,7 @@
 import * as fs from "fs-extra";
+import * as path from "path";
 import * as pg from "pg";
+import HelperFS from "./fs";
 
 export default class HelperEta {
     public static async connectDatabase(workingDir: string): Promise<pg.Client> {
@@ -25,5 +27,19 @@ export default class HelperEta {
                 return (await fs.pathExists(jsDir + "/tsconfig.json")) ? jsDir : undefined;
             }))).filter(d => d !== undefined);
         }))).reduce((p, v) => p.concat(v));
+    }
+
+    public static async generateAsset(moduleDir: string, type: string, filename: string, body: string) {
+        if (!await fs.pathExists(moduleDir + "/eta.json")) {
+            throw new Error(`The "eta.json" file is missing in ${moduleDir}.`);
+        }
+        const dirs: string[] = (await HelperFS.transformJsonFile<any, any>(moduleDir + "/eta.json", config => {
+            config.dirs[type] = config.dirs[type] || [type];
+            if (config.dirs[type].length === 0) config.dirs[type].push(type);
+            return config;
+        })).dirs[type];
+        const outputFilename = `${moduleDir}/${dirs[0]}/${filename}.ts`;
+        await fs.mkdirp(path.dirname(outputFilename));
+        await fs.writeFile(outputFilename, body);
     }
 }
