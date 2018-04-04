@@ -1,7 +1,7 @@
 import * as lib from "../../lib";
 import * as oclif from "@oclif/command";
 
-export default class GenerateController extends oclif.Command {
+export default class GenerateModel extends oclif.Command {
     static description = "generate new TypeORM model";
     static args = [
         {
@@ -17,7 +17,7 @@ export default class GenerateController extends oclif.Command {
     ];
 
     async run() {
-        const { args } = this.parse(GenerateController);
+        const { args } = this.parse(GenerateModel);
         const { moduleName, modelName } = args;
         const moduleDir = lib.WORKING_DIR + "/modules/" + moduleName;
         await lib.eta.generateAsset(moduleDir, "models", modelName, `import * as orm from "typeorm";
@@ -27,5 +27,6 @@ export default class ${modelName.split("/").slice(-1)[0]} {
     @orm.PrimaryGeneratedColumn()
     id: number;
 }`);
+        this.log("Generated model " + modelName);
     }
 }

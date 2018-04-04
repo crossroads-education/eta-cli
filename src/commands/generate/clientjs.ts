@@ -17,7 +17,7 @@ export default class GenerateClientJS extends oclif.Command {
         const moduleName: string = args.module;
         const moduleDir = lib.WORKING_DIR + "/modules/" + moduleName;
         if (!await fs.pathExists(moduleDir + "/eta.json")) {
-            return this.error(`The "eta.json" file is missing from module ${moduleName}.`);
+            return this.error(`The "eta.json" file is missing in ${moduleDir}.`);
         }
         const jsDir = moduleDir + "/static/js";
         this.log(`Initializing client-side JS for ${moduleName}...`);
@@ -42,5 +42,6 @@ export default class GenerateClientJS extends oclif.Command {
         ]);
         await oclif.run(["generate:indexes"]);
         await oclif.run(["compile:client", "-m", moduleName]);
+        this.log("Generated client-side JS for " + moduleName);
     }
 }

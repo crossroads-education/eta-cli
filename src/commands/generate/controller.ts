@@ -29,5 +29,6 @@ export default class ${_.upperFirst(_.camelCase(route))}Controller extends eta.H
         // TODO: Implement
     }
 }`);
+        this.log("Generated controller " + route);
     }
 }
