@@ -2,7 +2,7 @@ import * as lib from "../../lib";
 import * as oclif from "@oclif/command";
 
 export default class TestCore extends oclif.Command {
-    static description = "test server-side unit/integration tests";
+    static description = "run Eta's unit/integration tests";
     static flags = {
         "log-standard-output": oclif.flags.boolean({
             char: "l",
