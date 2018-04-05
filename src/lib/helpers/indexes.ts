@@ -68,7 +68,7 @@ export default class HelperIndexes {
     }
 
     async generate(): Promise<void> {
-        const rootIndexConfigs: IndexConfig[] = (await fs.readJSON(this.etaDir + "/indexes.json")).indexes || [];
+        const rootIndexConfigs: IndexConfig[] = await fs.readJSON(this.etaDir + "/indexes.json");
         try {
             this.moduleNames = await fs.readdir(this.etaDir + "/modules");
         } catch { /* we don't care about this, modules doesn't exist */ }
@@ -93,7 +93,7 @@ export default class HelperIndexes {
             const parentIndex = items.findIndex(i => i.baseName === items[index].parent);
             if (parentIndex > index) {
                 // swap
-                const temp = Object.assign({}, items[index]); // shallow copy
+                const temp = items[index];
                 items[index] = items[parentIndex];
                 items[parentIndex] = temp;
                 sortItem(parentIndex);
@@ -114,8 +114,7 @@ export default class HelperIndexes {
     }
 
     private async generateModels(): Promise<void> {
-        const moduleNames: string[] = await fs.readdir(this.etaDir + "/modules");
-        const modelDirs: string[] = (await Promise.all(moduleNames.map(async moduleName => {
+        const modelDirs: string[] = (await Promise.all(this.moduleNames.map(async moduleName => {
             const config = await fs.readJSON(this.etaDir + "/modules/" + moduleName + "/eta.json");
             return (<string[]>config.dirs.models || []).map(d => this.etaDir + "/modules/" + moduleName + "/" + d);
         }))).reduce((p, v) => p.concat(v), []);
@@ -146,7 +145,7 @@ ${items.filter(i => i.isModel).map(item => `    public get ${_.camelCase(item.ba
 export default RepositoryManager;`);
         clientLines.splice(0, 0, GENERATED_WARNING);
         const clientBody = clientLines.join("\n") + "\n";
-        await Promise.all(moduleNames.map(async moduleName => {
+        await Promise.all(this.moduleNames.map(async moduleName => {
             const jsDir = `${this.etaDir}/modules/${moduleName}/static/js`;
             if (!await fs.pathExists(jsDir)) return;
             await fs.writeFile(jsDir + "/db.ts", clientBody);
