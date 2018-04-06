@@ -85,7 +85,7 @@ export default class HelperIndexes {
     private async generateFromConfig(workingDir: string, config: IndexConfig): Promise<void> {
         config.exclude = config.exclude || [];
         // collect items
-        const items = (await this.getItems(config.dirs)).filter(i =>
+        const items = (await this.getItems(config.dirs.map(d => workingDir + "/" + d))).filter(i =>
             !config.exclude!.includes(i.baseName) &&
             (!config.only || config.only.includes(i.baseName)));
         // sort items by their parents (unparented first)
