@@ -2,10 +2,14 @@
   "compilerOptions": {
     "target": "es6",
     "module": "system",
-    "moduleResolution": "classic",
+    "moduleResolution": "node",
+    "newLine": "lf",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true,
     "preserveConstEnums": true,
     "skipLibCheck": true,
     "sourceMap": true

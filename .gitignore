@@ -1,5 +1,8 @@
-/node_modules/
+*-debug.log
+*-error.log
+.oclif.manifest.json
+/lib
+/node_modules
+/tmp
 *.js
 *.js.map
-/npm-debug.log
-/dist/

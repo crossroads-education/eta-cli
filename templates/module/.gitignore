@@ -2,8 +2,7 @@
 *.js.map
 /eta.ts
 /db.ts
-/node_modules
-/npm-debug.log
-/static/js/node_modules
-/static/js/typings
+node_modules
+typings
+*.log
 /static/js/db.ts
