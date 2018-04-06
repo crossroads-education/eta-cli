@@ -4,11 +4,17 @@ import * as oclif from "@oclif/command";
 export default class CompileServer extends oclif.Command {
     static description = "compile server-side Typescript";
     static examples = [];
-    static flags = {};
+    static flags = {
+        "no-exit": oclif.flags.boolean({
+            description: "Don't exit with an error code if compilation fails",
+            required: false
+        })
+    };
     static args = [];
     static aliases = ["compile"];
 
     async run() {
+        const { flags } = this.parse(CompileServer);
         console.log("Compiling server JS...");
         try {
             await lib.exec(`node ${lib.TSC_PATH}`, {
@@ -16,7 +22,7 @@ export default class CompileServer extends oclif.Command {
             });
         } catch (err) {
             process.stderr.write(err.stdout);
-            this.exit(1);
+            if (!flags["no-exit"]) this.exit(1);
         }
     }
 }

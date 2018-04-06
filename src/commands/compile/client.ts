@@ -7,6 +7,10 @@ export default class CompileClient extends oclif.Command {
         "modules": oclif.flags.string({
             char: "m",
             description: "modules to compile client-side JS for (comma-separated)"
+        }),
+        "no-exit": oclif.flags.boolean({
+            description: "Don't exit with an error code if compilation fails",
+            required: false
         })
     };
 
@@ -30,7 +34,7 @@ export default class CompileClient extends oclif.Command {
         } catch (err) {
             if (!err.stdout) throw err;
             process.stderr.write(err.stdout);
-            this.exit(1);
+            if (!flags["no-exit"]) this.exit(1);
         }
     }
 }
