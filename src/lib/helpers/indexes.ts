@@ -153,8 +153,12 @@ export default RepositoryManager;`);
     }
 
     private async getItems(dirs: string[], baseDir?: string): Promise<IndexedItem[]> {
+        const isRecursive = !baseDir;
         return (await Promise.all(dirs.map(async d => {
-            const items = await Promise.all((await recursiveReaddir(d)).filter(f => f.endsWith(".ts")).map(f => this.getItem(f)));
+            const items = await Promise.all((await (isRecursive ? recursiveReaddir(d) : fs.readdir(d)))
+                .filter(f => f.endsWith(".ts"))
+                .map(f => this.getItem(isRecursive ? f : d + "/" + f))
+            );
             items.forEach(i => i.relativeFilename = path.relative(baseDir || d, i.absoluteFilename).replace(/\\/g, "/"));
             return items.filter(i => i.baseName !== "index");
         }))).reduce((p, v) => p.concat(v), []);
