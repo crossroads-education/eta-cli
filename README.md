@@ -9,20 +9,18 @@ All commands should be run from the root directory of an Eta instance.
 <!-- toc -->
 * [Project Eta CLI](#project-eta-cli)
 <!-- tocstop -->
-<!-- tocstop -->
 <!-- usage -->
 ```sh-session
 $ npm install -g @xroadsed/eta-cli
 $ eta COMMAND
 running command...
 $ eta (-v|--version|version)
-@xroadsed/eta-cli/1.3.0-a8 win32-x64 node-v8.9.1
+@xroadsed/eta-cli/1.3.0-a9 win32-x64 node-v8.9.1
 $ eta --help [COMMAND]
 USAGE
   $ eta COMMAND
 ...
 ```
-<!-- usagestop -->
 <!-- usagestop -->
 <!-- commands -->
 * [eta clean](#eta-clean)
@@ -42,6 +40,7 @@ USAGE
 * [eta install URL](#eta-install-url)
 * [eta lint:client](#eta-lintclient)
 * [eta lint:server](#eta-lintserver)
+* [eta pull](#eta-pull)
 * [eta setup](#eta-setup)
 * [eta start](#eta-start)
 * [eta test:core](#eta-testcore)
@@ -56,7 +55,7 @@ USAGE
   $ eta clean
 ```
 
-_See code: [lib/commands/clean.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/clean.js)_
+_See code: [lib/commands/clean.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/clean.js)_
 
 ## eta compile:client
 
@@ -71,7 +70,7 @@ OPTIONS
   --no-exit              Don't exit with an error code if compilation fails
 ```
 
-_See code: [lib/commands/compile/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/compile/client.js)_
+_See code: [lib/commands/compile/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/compile/client.js)_
 
 ## eta compile:server
 
@@ -88,7 +87,7 @@ ALIASES
   $ eta compile
 ```
 
-_See code: [lib/commands/compile/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/compile/server.js)_
+_See code: [lib/commands/compile/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/compile/server.js)_
 
 ## eta config:get [KEY]
 
@@ -102,7 +101,7 @@ ARGUMENTS
   KEY  The key to get (including domain)
 ```
 
-_See code: [lib/commands/config/get.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/config/get.js)_
+_See code: [lib/commands/config/get.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/config/get.js)_
 
 ## eta config:set [KEY] [VALUE]
 
@@ -117,7 +116,7 @@ ARGUMENTS
   VALUE  The value to set
 ```
 
-_See code: [lib/commands/config/set.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/config/set.js)_
+_See code: [lib/commands/config/set.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/config/set.js)_
 
 ## eta db:reset
 
@@ -131,7 +130,7 @@ OPTIONS
   -n, --no-wait  Don't wait 3 seconds before resetting
 ```
 
-_See code: [lib/commands/db/reset.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/db/reset.js)_
+_See code: [lib/commands/db/reset.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/db/reset.js)_
 
 ## eta db:seed
 
@@ -145,7 +144,7 @@ OPTIONS
   -n, --no-log  Don't log anything from the Eta instance
 ```
 
-_See code: [lib/commands/db/seed.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/db/seed.js)_
+_See code: [lib/commands/db/seed.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/db/seed.js)_
 
 ## eta foreach [COMMAND]
 
@@ -162,7 +161,7 @@ OPTIONS
   -c, --clientJS=clientJS  run in client-side JS directories only
 ```
 
-_See code: [lib/commands/foreach.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/foreach.js)_
+_See code: [lib/commands/foreach.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/foreach.js)_
 
 ## eta generate:clientjs MODULE
 
@@ -176,7 +175,7 @@ ARGUMENTS
   MODULE  module name to generate client-side JS for
 ```
 
-_See code: [lib/commands/generate/clientjs.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/generate/clientjs.js)_
+_See code: [lib/commands/generate/clientjs.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/generate/clientjs.js)_
 
 ## eta generate:controller MODULENAME ROUTE
 
@@ -191,7 +190,7 @@ ARGUMENTS
   ROUTE       route to generate controller for
 ```
 
-_See code: [lib/commands/generate/controller.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/generate/controller.js)_
+_See code: [lib/commands/generate/controller.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/generate/controller.js)_
 
 ## eta generate:indexes
 
@@ -205,7 +204,7 @@ ALIASES
   $ eta generate
 ```
 
-_See code: [lib/commands/generate/indexes.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/generate/indexes.js)_
+_See code: [lib/commands/generate/indexes.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/generate/indexes.js)_
 
 ## eta generate:model MODULENAME MODELNAME
 
@@ -220,7 +219,7 @@ ARGUMENTS
   MODELNAME   name for new model
 ```
 
-_See code: [lib/commands/generate/model.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/generate/model.js)_
+_See code: [lib/commands/generate/model.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/generate/model.js)_
 
 ## eta generate:module MODULE
 
@@ -234,7 +233,7 @@ ARGUMENTS
   MODULE  module name to generate
 ```
 
-_See code: [lib/commands/generate/module.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/generate/module.js)_
+_See code: [lib/commands/generate/module.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/generate/module.js)_
 
 ## eta help [COMMAND]
 
@@ -265,7 +264,7 @@ ARGUMENTS
   URL  url to install module from
 ```
 
-_See code: [lib/commands/install.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/install.js)_
+_See code: [lib/commands/install.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/install.js)_
 
 ## eta lint:client
 
@@ -280,7 +279,7 @@ OPTIONS
   -m, --modules=modules  Only lint these modules (comma-separated)
 ```
 
-_See code: [lib/commands/lint/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/lint/client.js)_
+_See code: [lib/commands/lint/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/lint/client.js)_
 
 ## eta lint:server
 
@@ -297,7 +296,21 @@ ALIASES
   $ eta lint
 ```
 
-_See code: [lib/commands/lint/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/lint/server.js)_
+_See code: [lib/commands/lint/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/lint/server.js)_
+
+## eta pull
+
+pull all (or some) Eta modules from remote
+
+```
+USAGE
+  $ eta pull
+
+OPTIONS
+  -m, --modules=modules  Module names to pull
+```
+
+_See code: [lib/commands/pull.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/pull.js)_
 
 ## eta setup
 
@@ -308,7 +321,7 @@ USAGE
   $ eta setup
 ```
 
-_See code: [lib/commands/setup.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/setup.js)_
+_See code: [lib/commands/setup.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/setup.js)_
 
 ## eta start
 
@@ -322,7 +335,7 @@ OPTIONS
   -f, --fast  don't generate or compile, just start
 ```
 
-_See code: [lib/commands/start.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/start.js)_
+_See code: [lib/commands/start.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/start.js)_
 
 ## eta test:core
 
@@ -339,7 +352,7 @@ ALIASES
   $ eta test
 ```
 
-_See code: [lib/commands/test/core.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/test/core.js)_
+_See code: [lib/commands/test/core.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/test/core.js)_
 
 ## eta test:modules
 
@@ -356,6 +369,5 @@ OPTIONS
   -t, --timeout=timeout  [default: 3000] max time until Mocha kills a test (ms)
 ```
 
-_See code: [lib/commands/test/modules.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a8/lib/commands/test/modules.js)_
-<!-- commandsstop -->
+_See code: [lib/commands/test/modules.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.0-a9/lib/commands/test/modules.js)_
 <!-- commandsstop -->
