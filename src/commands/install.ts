@@ -67,7 +67,7 @@ export default class Install extends oclif.Command {
             }
         }
         try {
-            const gitUrl = (isHTTPS ? "git@github.com:" : "https://github.com/") + url;
+            const gitUrl = (isHTTPS ? "https://github.com/" : "git@github.com:") + url;
             await lib.exec(`git clone ${gitUrl} ${moduleDir}`, { cwd: lib.WORKING_DIR });
             await lib.exec(`git checkout ${branch}`, { cwd: moduleDir });
         } catch (err) {
