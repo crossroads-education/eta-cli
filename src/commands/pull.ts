@@ -20,12 +20,12 @@ export default class Pull extends oclif.Command {
         this.log("Pulling " + moduleNames.join(", ") + "...");
         const changedModules: string[] = [];
         for (const moduleName of moduleNames) {
-            if (!await fs.pathExists(moduleName)) {
+            const moduleDir = lib.WORKING_DIR + "/modules/" + moduleName;
+            if (!await fs.pathExists(moduleDir)) {
                 this.warn(`\tModule ${moduleName} does not exist.`);
                 continue;
             }
             this.log(`\tPulling module ${moduleName}...`);
-            const moduleDir = lib.WORKING_DIR + "/modules/" + moduleName;
             try {
                 const result = await lib.exec("git pull", { cwd: moduleDir });
                 if (result.stdout.replace(/\-/g, " ") === "Already up to date.\n") continue;
