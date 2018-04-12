@@ -6,3 +6,4 @@
 /tmp
 *.js
 *.js.map
+package-lock.json

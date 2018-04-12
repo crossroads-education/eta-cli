@@ -23,8 +23,8 @@ export default class GenerateController extends oclif.Command {
         const moduleDir = lib.WORKING_DIR + "/modules/" + moduleName;
         await lib.eta.generateAsset(moduleDir, "controllers", route, `import * as eta from "@eta/eta";
 
+@eta.controller("${route}")
 export default class ${_.upperFirst(_.camelCase(route))}Controller extends eta.HttpController {
-    route = "${route}";
     async index() {
         // TODO: Implement
     }
