@@ -74,11 +74,12 @@ export default class TestModules extends oclif.Command {
         require(lib.WORKING_DIR + "/helpers/require.js"); // set up support for require("@eta/...")
         process.env.API_TOKEN = apiToken;
         await db.end();
-        await new Promise(resolve => {
-            mocha.run(() => {
-                resolve();
+        const failures = await new Promise<number>(resolve => {
+            mocha.run(failures => {
+                resolve(failures);
             });
         });
         server.process!.kill();
+        if (failures !== 0) this.exit(1);
     }
 }
