@@ -356,6 +356,10 @@ chalk@^2.3.0, chalk@^2.3.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
+charenc@~0.0.1:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
+
 check-error@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
@@ -415,6 +419,10 @@ content-type@^1.0.4:
 copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
+
+crypt@~0.0.1:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
 
 debug@2.6.8:
   version "2.6.8"
@@ -775,7 +783,7 @@ is-accessor-descriptor@^1.0.0:
   dependencies:
     kind-of "^6.0.0"
 
-is-buffer@^1.1.5:
+is-buffer@^1.1.5, is-buffer@~1.1.1:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
 
@@ -1022,6 +1030,14 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+md5@^2.1.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/md5/-/md5-2.2.1.tgz#53ab38d5fe3c8891ba465329ea23fac0540126f9"
+  dependencies:
+    charenc "~0.0.1"
+    crypt "~0.0.1"
+    is-buffer "~1.1.1"
+
 merge2@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.2.1.tgz#271d2516ff52d4af7f7b710b8bf3e16e183fef66"
@@ -1065,11 +1081,21 @@ mixin-deep@^1.2.0:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
 
-mkdirp@0.5.1, mkdirp@^0.5.1:
+mkdirp@0.5.1, mkdirp@^0.5.1, mkdirp@~0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+mocha-junit-reporter@^1.17.0:
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/mocha-junit-reporter/-/mocha-junit-reporter-1.17.0.tgz#2e5149ed40fc5d2e3ca71e42db5ab1fec9c6d85c"
+  dependencies:
+    debug "^2.2.0"
+    md5 "^2.1.0"
+    mkdirp "~0.5.1"
+    strip-ansi "^4.0.0"
+    xml "^1.0.0"
 
 mocha@3.5.3:
   version "3.5.3"
@@ -1651,6 +1677,10 @@ x-path@^0.0.2:
   resolved "https://registry.yarnpkg.com/x-path/-/x-path-0.0.2.tgz#294d076bb97a7706cc070bbb2a6fd8c54df67b12"
   dependencies:
     path-extra "^1.0.2"
+
+xml@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
 
 xtend@^4.0.0:
   version "4.0.1"
