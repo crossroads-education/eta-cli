@@ -10,7 +10,17 @@ export default class TestModules extends oclif.Command {
     static flags = {
         "log-all": oclif.flags.boolean({
             char: "l",
-            description: "log everything from server"
+            description: "log everything from server",
+            required: false
+        }),
+        "modules": oclif.flags.string({
+            char: "m",
+            description: "only test these modules (comma-separated)",
+            required: false
+        }),
+        "reporter": oclif.flags.string({
+            description: "reporter name for mocha to use",
+            required: false
         }),
         "reset": oclif.flags.boolean({
             char: "r",
@@ -41,9 +51,12 @@ export default class TestModules extends oclif.Command {
             slow: Number(flags.slow),
             timeout: Number(flags.reset),
         });
+        if (flags.reporter) mocha.reporter(flags.reporter);
         const modulesDir = lib.WORKING_DIR + "/modules/";
-        // add all files in test/ and modules/*/test/ to Mocha
-        (await Promise.all((await fs.readdir(modulesDir)).map(async d => {
+        const allowedModules = flags.modules ? flags.modules.split(",") : [];
+        const moduleNames = (await fs.readdir(modulesDir)).filter(d => (!flags.modules) || allowedModules.includes(d));
+        // add all files in modules/*/test/ to Mocha
+        (await Promise.all(moduleNames.map(async d => {
             const testDir = modulesDir + d + "/test";
             if (!await fs.pathExists(testDir)) return [];
             return await lib.recursiveReaddir(testDir);
