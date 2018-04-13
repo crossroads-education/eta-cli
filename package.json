@@ -1,7 +1,7 @@
 {
   "name": "@xroadsed/eta-cli",
   "description": "CLI for Eta MVC server",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "author": "Alex Hicks @aldahick",
   "bin": {
     "eta": "./bin/run"
