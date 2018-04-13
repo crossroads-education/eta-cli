@@ -17,6 +17,10 @@ export default class Install extends oclif.Command {
         const { args } = this.parse(Install);
         await this.loadOctokit();
         await this.install(args.url, false);
+        // do all this after all modules have been installed
+        await oclif.run(["generate:indexes"]);
+        await oclif.run(["compile:server", "--no-exit"]);
+        await oclif.run(["compile:client", "--no-exit"]);
     }
 
     /**
@@ -76,15 +80,12 @@ export default class Install extends oclif.Command {
         // fire hook preinstall
         this.log("\tInstalling NPM modules...");
         await lib.exec("npm i", { cwd: moduleDir });
-        this.log(`\tInstalling client-side NPM modules...`);
         const jsDirs = metadata.dirs.staticFiles.map(d => moduleDir + "/" + d + "/js");
+        if (jsDirs.length > 0) this.log(`\tInstalling client-side NPM modules...`);
         for (const jsDir of jsDirs) {
             if (!await fs.pathExists(jsDir)) continue;
             await lib.exec("npm i", { cwd: jsDir });
         }
-        await oclif.run(["generate:indexes"]);
-        await oclif.run(["compile:server", "--no-exit"]);
-        if (jsDirs.length > 0) await oclif.run(["compile:client", "-m", metadata.name, "--no-exit"]);
         return true;
     }
 
