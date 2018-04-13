@@ -29,7 +29,7 @@ class IndexedItem {
 
     getExportSnippet(): string[] {
         let lines: string[] = this.body.split("\n")
-            .map(line => line.replace(/^[\W]{0,}export default /g, "").replace(/\r/g, ""))
+            .map(line => line.replace(/ default /g, " ").replace(/\r/g, ""))
             .filter(line => {
                 line = line.trim(); // don't want to return trimmed lines
                 return !(
