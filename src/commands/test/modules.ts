@@ -49,7 +49,7 @@ export default class TestModules extends oclif.Command {
         if (flags.reset) await DBSeed.seed(server);
         const mocha = new Mocha({
             slow: Number(flags.slow),
-            timeout: Number(flags.reset),
+            timeout: Number(flags.timeout),
         });
         if (flags.reporter) mocha.reporter(flags.reporter);
         const modulesDir = lib.WORKING_DIR + "/modules/";
