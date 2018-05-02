@@ -8,6 +8,11 @@ import DBSeed from "../db/seed";
 export default class TestModules extends oclif.Command {
     static description = "run all module unit/integration tests";
     static flags = {
+        "fast": oclif.flags.boolean({
+            char: "f",
+            description: "don't start the server, just run tests",
+            required: false
+        }),
         "log-all": oclif.flags.boolean({
             char: "l",
             description: "log everything from server",
@@ -44,9 +49,12 @@ export default class TestModules extends oclif.Command {
     async run() {
         const { flags } = this.parse(TestModules);
         if (flags.reset) await oclif.run(["db:reset", "--no-wait"]);
-        const server = new lib.EtaProcess(lib.WORKING_DIR, flags["log-all"]);
-        await server.start();
-        if (flags.reset) await DBSeed.seed(server);
+        let server: lib.EtaProcess | undefined;
+        if (!flags.fast) {
+            server = new lib.EtaProcess(lib.WORKING_DIR, flags["log-all"]);
+            await server.start();
+            if (flags.reset) await DBSeed.seed(server);
+        }
         const mocha = new Mocha({
             slow: Number(flags.slow),
             timeout: Number(flags.timeout),
@@ -79,7 +87,7 @@ export default class TestModules extends oclif.Command {
                 resolve(failures);
             });
         });
-        server.process!.kill();
+        if (!flags.fast) server!.process!.kill();
         if (failures !== 0) this.exit(1);
     }
 }
