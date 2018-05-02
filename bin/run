@@ -1,3 +1,4 @@
 #!/usr/bin/env node
+require("source-map-support").install();
 require('@oclif/command').run()
 .catch(require('@oclif/errors/handle'))
