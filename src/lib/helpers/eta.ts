@@ -1,6 +1,7 @@
 import * as constants from "../constants";
 import { exec } from "./promisified";
 import * as fs from "fs-extra";
+import * as orm from "typeorm";
 import * as path from "path";
 import * as pg from "pg";
 import HelperFS from "./fs";
@@ -14,21 +15,27 @@ export default class HelperEta {
         return client;
     }
 
+    public static async connectORM(workingDir: string): Promise<orm.Connection> {
+        require(workingDir + "/helpers/require.js");
+        const options: orm.ConnectionOptions = await fs.readJSON(workingDir + "/config/global/db.json");
+        return await orm.createConnection({
+            ...options,
+            entities: (await this.getModuleSubDirs(workingDir, [], "models")).map(d => d + "/*.js"),
+            namingStrategy: new (require(workingDir + "/lib/DatabaseNamingStrategy.js").default)()
+        });
+    }
+
     public static get workingModuleName(): string {
         const tokens: string[] = process.cwd().replace(/\\/g, "/").split("/");
         return tokens.reverse()[tokens.reverse().findIndex(t => t === "modules") + 1];
     }
 
-    public static async getClientJSDirs(workingDir: string, moduleNames: string[]): Promise<string[]> {
-        if (moduleNames.length === 0) moduleNames = await fs.readdir(workingDir + "/modules");
-        return (await Promise.all(moduleNames.map(async moduleName => {
-            const moduleDir = workingDir + "/modules/" + moduleName;
-            const moduleConfig = await fs.readJSON(moduleDir + "/eta.json");
-            return <string[]>(await Promise.all((<string[]>moduleConfig.dirs.staticFiles).map(async staticDir => {
-                const jsDir = `${moduleDir}/${staticDir}/js`;
-                return (await fs.pathExists(jsDir + "/tsconfig.json")) ? jsDir : undefined;
-            }))).filter(d => d !== undefined);
-        }))).reduce((p, v) => p.concat(v));
+    public static async getModuleSubDirs(workingDir: string, moduleNames: string[], dirKey: string): Promise<string[]> {
+        return (await this.getModuleConfigs(workingDir, moduleNames)).map(moduleConfig => {
+            return (<string[]>moduleConfig.dirs[dirKey]).map(dir => {
+                return `${workingDir}/modules/${moduleConfig.name}/${dir}`;
+            }).filter(d => d !== undefined);
+        }).reduce((p, v) => p.concat(v));
     }
 
     public static async generateAsset(moduleDir: string, type: string, filename: string, body: string) {
@@ -53,5 +60,13 @@ export default class HelperEta {
         } catch (err) {
             process.stderr.write(err.stdout);
         }
+    }
+
+    public static async getModuleConfigs(workingDir: string, moduleNames: string[]): Promise<any[]> {
+        if (moduleNames.length === 0) moduleNames = await fs.readdir(workingDir + "/modules");
+        return (await Promise.all(moduleNames.map(moduleName => {
+            const moduleDir = workingDir + "/modules/" + moduleName;
+            return fs.readJSON(moduleDir + "/eta.json");
+        })));
     }
 }

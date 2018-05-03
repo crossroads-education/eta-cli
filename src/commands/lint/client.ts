@@ -19,7 +19,7 @@ export default class LintClient extends oclif.Command {
     async run() {
         const { flags } = this.parse(LintClient);
         this.log("Linting client-side Typescript...");
-        const jsDirs = await lib.eta.getClientJSDirs(lib.WORKING_DIR, (flags.modules ? flags.modules.split(",") : []));
-        await Promise.all(jsDirs.map(d => lib.eta.lint(d, flags.fix, lib.WORKING_DIR)));
+        const staticDirs = await lib.eta.getModuleSubDirs(lib.WORKING_DIR, (flags.modules ? flags.modules.split(",") : []), "staticFiles");
+        await Promise.all(staticDirs.map(d => lib.eta.lint(d + "/js", flags.fix, lib.WORKING_DIR)));
     }
 }

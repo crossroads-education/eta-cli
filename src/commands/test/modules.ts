@@ -55,9 +55,12 @@ export default class TestModules extends oclif.Command {
             await server.start();
             if (flags.reset) await DBSeed.seed(server);
         }
+        const ormConnection = await lib.eta.connectORM(lib.WORKING_DIR);
+        // NOTE to use this without compilation errors, add `declare const orm: db.RepositoryManager;` in your test file
+        (<any>global).orm = new (require(lib.WORKING_DIR + "/db.js").RepositoryManager)(ormConnection);
         const mocha = new Mocha({
             slow: Number(flags.slow),
-            timeout: Number(flags.timeout),
+            timeout: Number(flags.timeout)
         });
         if (flags.reporter) mocha.reporter(flags.reporter);
         const modulesDir = lib.WORKING_DIR + "/modules/";
@@ -88,6 +91,7 @@ export default class TestModules extends oclif.Command {
             });
         });
         if (!flags.fast) server!.process!.kill();
+        await ormConnection.close();
         if (failures !== 0) this.exit(1);
     }
 }

@@ -23,9 +23,10 @@ export default class CompileClient extends oclif.Command {
             moduleNames.push(workingModuleName);
         }
         this.log("Compiling client-side JS...");
-        const jsDirs = await lib.eta.getClientJSDirs(lib.WORKING_DIR, moduleNames);
+        const staticDirs = await lib.eta.getModuleSubDirs(lib.WORKING_DIR, moduleNames, "staticFiles");
         try {
-            for (const jsDir of jsDirs) {
+            for (const staticDir of staticDirs) {
+                const jsDir = staticDir + "/js";
                 console.log(`\tCompiling "${jsDir}"...`);
                 await lib.exec("node " + lib.TSC_PATH, {
                     cwd: jsDir
