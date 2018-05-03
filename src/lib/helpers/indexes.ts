@@ -131,12 +131,10 @@ export default class HelperIndexes {
             clientLines = item.sortFirst ? exportSnippet.concat(clientLines) : clientLines.concat(exportSnippet);
         }
         serverLines.push(`export class RepositoryManager {
-    private name: string;
-    constructor(name: string) {
-        this.name = name;
-    }
-    public get connection(): orm.Connection {
-        return orm.getConnection(this.name);
+    public readonly connection: orm.Connection;
+    constructor(connection: orm.Connection | string) {
+        if (typeof(connection) === "string") connection = orm.getConnection(connection);
+        this.connection = connection;
     }
 ${items.filter(i => i.isModel).map(item => `    public get ${_.camelCase(item.baseName)}(): orm.Repository<${item.baseName}> {
         return this.connection.getRepository(${item.baseName});
