@@ -36,13 +36,13 @@ export default class TestModules extends oclif.Command {
             char: "s",
             description: "max time until Mocha flags a test as slow (ms)",
             required: false,
-            default: "1000"
+            default: "1500"
         }),
         "timeout": oclif.flags.string({
             char: "t",
             description: "max time until Mocha kills a test (ms)",
             required: false,
-            default: "3000"
+            default: "5000"
         })
     };
 
