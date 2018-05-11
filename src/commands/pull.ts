@@ -36,12 +36,18 @@ export default class Pull extends oclif.Command {
             }
             this.log(`\tModule ${moduleName} had updates.`);
             changedModules.push(moduleName);
-            await lib.exec("npm i", { cwd: moduleDir });
         }
-        if (changedModules.length > 0) {
-            await oclif.run(["generate:indexes"]);
-            await oclif.run(["compile:server", "--no-exit"]);
-            await oclif.run(["compile:client", "-m", changedModules.join(",")]);
-        }
+        if (changedModules.length === 0) return;
+        await oclif.run(["generate:indexes"]);
+        await Promise.all(changedModules.map(async moduleName => {
+            this.log("Updating NPM modules for " + moduleName + "...");
+            await lib.exec("npm i", { cwd: lib.WORKING_DIR + "/modules/" + moduleName });
+            const jsDir = lib.WORKING_DIR + "/modules/" + moduleName + "/static/js";
+            if (await fs.pathExists(jsDir)) {
+                await lib.exec("npm i", { cwd: jsDir });
+            }
+        }));
+        await oclif.run(["compile:server", "--no-exit"]);
+        await oclif.run(["compile:client", "-m", changedModules.join(",")]);
     }
 }
