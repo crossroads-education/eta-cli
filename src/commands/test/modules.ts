@@ -70,7 +70,7 @@ export default class TestModules extends oclif.Command {
         (await Promise.all(moduleNames.map(async d => {
             const testDir = modulesDir + d + "/test";
             if (!await fs.pathExists(testDir)) return [];
-            return await lib.recursiveReaddir(testDir);
+            return lib.recursiveReaddir(testDir);
         }))).reduce((p, v) => p.concat(v), []).filter(f => f.endsWith(".js")).forEach(f => mocha.addFile(f));
         const db = await lib.eta.connectDatabase(lib.WORKING_DIR);
         let apiToken = "";

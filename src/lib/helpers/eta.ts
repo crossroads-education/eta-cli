@@ -18,7 +18,7 @@ export default class HelperEta {
     public static async connectORM(workingDir: string): Promise<orm.Connection> {
         require(workingDir + "/helpers/require.js");
         const options: orm.ConnectionOptions = await fs.readJSON(workingDir + "/config/global/db.json");
-        return await orm.createConnection({
+        return orm.createConnection({
             ...options,
             entities: (await this.getModuleSubDirs(workingDir, [], "models")).map(d => d + "/*.js"),
             namingStrategy: new (require(workingDir + "/lib/DatabaseNamingStrategy.js").default)()
@@ -31,11 +31,9 @@ export default class HelperEta {
     }
 
     public static async getModuleSubDirs(workingDir: string, moduleNames: string[], dirKey: string): Promise<string[]> {
-        return (await this.getModuleConfigs(workingDir, moduleNames)).map(moduleConfig => {
-            return (<string[]>moduleConfig.dirs[dirKey]).map(dir => {
-                return `${workingDir}/modules/${moduleConfig.name}/${dir}`;
-            }).filter(d => d !== undefined);
-        }).reduce((p, v) => p.concat(v));
+        return (await this.getModuleConfigs(workingDir, moduleNames)).map(moduleConfig =>
+            (<string[]>moduleConfig.dirs[dirKey]).map(dir =>
+                `${workingDir}/modules/${moduleConfig.name}/${dir}`).filter(d => d !== undefined)).reduce((p, v) => p.concat(v));
     }
 
     public static async generateAsset(moduleDir: string, type: string, filename: string, body: string) {
@@ -64,7 +62,7 @@ export default class HelperEta {
 
     public static async getModuleConfigs(workingDir: string, moduleNames: string[]): Promise<any[]> {
         if (moduleNames.length === 0) moduleNames = await fs.readdir(workingDir + "/modules");
-        return (await Promise.all(moduleNames.map(moduleName => {
+        return (Promise.all(moduleNames.map(moduleName => {
             const moduleDir = workingDir + "/modules/" + moduleName;
             return fs.readJSON(moduleDir + "/eta.json");
         })));

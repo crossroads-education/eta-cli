@@ -19,7 +19,7 @@ export default class TestCore extends oclif.Command {
         (await lib.recursiveReaddir(lib.WORKING_DIR + "/test")).filter(f => f.endsWith(".js"))
             .forEach(f => mocha.addFile(f));
         const failures = await new Promise<number>(resolve =>
-            mocha.run(failures => resolve(failures)));
+            mocha.run(resolve));
         if (failures > 0) this.exit(1);
     }
 }

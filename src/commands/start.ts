@@ -17,7 +17,7 @@ export default class Start extends oclif.Command {
             await oclif.run(["generate:indexes"]);
             await oclif.run(["compile:server"]);
         }
-        const server = await new lib.EtaProcess(lib.WORKING_DIR, true);
+        const server = new lib.EtaProcess(lib.WORKING_DIR, true);
         await server.start();
     }
 }
