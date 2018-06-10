@@ -41,10 +41,10 @@ export default class Pull extends oclif.Command {
         await oclif.run(["generate:indexes"]);
         await Promise.all(changedModules.map(async moduleName => {
             this.log("Updating NPM modules for " + moduleName + "...");
-            await lib.exec("npm i", { cwd: lib.WORKING_DIR + "/modules/" + moduleName });
+            await lib.exec("yarn install", { cwd: lib.WORKING_DIR + "/modules/" + moduleName });
             const jsDir = lib.WORKING_DIR + "/modules/" + moduleName + "/static/js";
             if (await fs.pathExists(jsDir)) {
-                await lib.exec("npm i", { cwd: jsDir });
+                await lib.exec("yarn install", { cwd: jsDir });
             }
         }));
         await oclif.run(["compile:server", "--no-exit"]);
