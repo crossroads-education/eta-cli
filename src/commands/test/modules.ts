@@ -75,7 +75,18 @@ export default class TestModules extends oclif.Command {
         const db = await lib.eta.connectDatabase(lib.WORKING_DIR);
         let apiToken = "";
         if (flags.reset) { // add a new API token to fresh DB
-            const result = await db.query(`select user_id as id from user_position where start <= current_date and ("end" is null or "end" > current_date) limit 1`);
+            const result = await db.query(`select
+                    user_position.user_id as id
+                from user_position
+                    left join position on
+                        user_position.position_id = position.id
+                    left join position_role on
+                        position.role_id = position_role.id
+                where
+                    position_role.permissions = '*' and
+                    user_position.start <= current_date and
+                    (user_position."end" is null or user_position."end" > current_date)
+                limit 1`);
             apiToken = crypto.randomBytes(16).toString("hex");
             await db.query(`update "user" set "api_token" = $1::text where "id" = $2::int`, [apiToken, result.rows[0].id]);
         } else { // get the previously-set API token
