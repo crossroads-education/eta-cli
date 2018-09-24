@@ -17,12 +17,14 @@ export default class GenerateClientJS extends oclif.Command {
         const moduleName: string = args.module;
         const moduleDir = lib.WORKING_DIR + "/modules/" + moduleName;
         if (!await fs.pathExists(moduleDir + "/eta.json")) {
-            return this.error(`The "eta.json" file is missing in ${moduleDir}.`);
+            this.error(`The "eta.json" file is missing in ${moduleDir}.`);
+            return;
         }
         const jsDir = moduleDir + "/static/js";
         this.log(`Initializing client-side JS for ${moduleName}...`);
         if (await fs.pathExists(jsDir)) {
-            return this.error(`Client-side JS already exists for ${moduleName}.`);
+            this.error(`Client-side JS already exists for ${moduleName}.`);
+            return;
         }
         await fs.mkdirp(jsDir);
         await Promise.all([

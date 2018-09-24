@@ -115,9 +115,7 @@ export default class Install extends oclif.Command {
             token = await lib.question("Enter your Github personal access token: ");
             await fs.writeJSON(configFilename, { githubToken: token });
         }
-        this.octokit = new Octokit({
-            requestMedia: "application/vnd.github.VERSION.raw"
-        });
+        this.octokit = new Octokit({ headers: { accept: "application/vnd.github.VERSION.raw" } });
         this.octokit!.authenticate({
             type: "token", token
         });

@@ -16,10 +16,11 @@ export default class ConfigGet extends oclif.Command {
         const keyTokens: string[] = args.key.split(".");
         const configPath = (await lib.fs.getNearestFile(keyTokens, f => `${lib.WORKING_DIR}/config/${f}.json`));
         if (configPath === undefined) {
-            return this.error("Can't find a matching configuration file for key " + args.key);
+            this.error("Can't find a matching configuration file for key " + args.key);
+        } else {
+            let item = await fs.readJSON(lib.WORKING_DIR + "/config/" + configPath + ".json");
+            keyTokens.forEach(t => item = item[t]);
+            this.log(item);
         }
-        let item = await fs.readJSON(lib.WORKING_DIR + "/config/" + configPath + ".json");
-        keyTokens.forEach(t => item = item[t]);
-        this.log(item);
     }
 }

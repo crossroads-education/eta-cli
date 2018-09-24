@@ -17,7 +17,8 @@ export default class GenerateModule extends oclif.Command {
         const moduleName: string = args.module;
         const moduleDir = lib.WORKING_DIR + "/modules/" + moduleName;
         if (await fs.pathExists(moduleDir)) {
-            return this.error(`Module ${moduleName} already exists.`);
+            this.error(`Module ${moduleName} already exists.`);
+            return;
         }
         await fs.mkdirp(moduleDir);
         await fs.copy(lib.CLI_DIR + "/templates/module", moduleDir + "/", { recursive: true });
