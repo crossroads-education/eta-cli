@@ -91,11 +91,12 @@ export default class Install extends oclif.Command {
 
     private async fetchMetadata(owner: string, repo: string, branch = "master") {
         try {
-            return JSON.parse(Buffer.from((await this.octokit!.repos.getContent({
+            const res = await this.octokit!.repos.getContent({
                 owner, repo,
                 path: "eta.json",
                 ref: branch
-            })).data.content, "base64").toString());
+            });
+            return JSON.parse(res.data);
         } catch (err) {
             if (err.code === 404) {
                 this.error(`Module ${owner}/${repo}#${branch} does not exist, or the repository does not contain eta.json.`);
