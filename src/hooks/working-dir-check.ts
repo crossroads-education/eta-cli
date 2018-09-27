@@ -3,7 +3,7 @@ import * as oclif from "@oclif/config";
 import * as lib from "../lib";
 
 const hook: oclif.Hook<"init"> = async function(options) {
-    if (options && ["readme", "-v"].includes(options.id!)) return;
+    if (options && ["readme", "-v", "init"].includes(options.id!)) return;
     const tokens = lib.WORKING_DIR.split("/");
     let isValid = false;
     let i = tokens.length;
