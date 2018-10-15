@@ -38,10 +38,10 @@ export default class Init extends oclif.Command {
     async run() {
         const { flags, args } = this.parse(Init);
         await this.runInit(args.target, flags.config, flags.host);
-        // // do all this after all modules have been installed
-        // await oclif.run(["generate:indexes"]);
-        // await oclif.run(["compile:server", "--no-exit"]);
-        // await oclif.run(["compile:client", "--no-exit"]);
+        // do all this after all modules have been installed
+        await oclif.run(["generate:indexes"]);
+        await oclif.run(["compile:server", "--no-exit"]);
+        await oclif.run(["compile:client", "--no-exit"]);
     }
 
     /**
