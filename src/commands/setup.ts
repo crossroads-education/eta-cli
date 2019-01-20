@@ -1,3 +1,4 @@
+
 import * as fs from "fs-extra";
 import * as lib from "../lib";
 import * as oclif from "@oclif/command";
@@ -7,7 +8,7 @@ export default class Setup extends oclif.Command {
 
     async run() {
         this.log("Setting up a fresh Eta instance...");
-        await lib.exec("yarn install", { cwd: lib.WORKING_DIR });
+        await lib.exec("npm install", { cwd: lib.WORKING_DIR });
         await oclif.run(["generate:indexes"]);
         await oclif.run(["compile:server"]);
         await Promise.all((await lib.recursiveReaddir(lib.WORKING_DIR + "/config"))

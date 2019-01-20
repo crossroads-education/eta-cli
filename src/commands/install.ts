@@ -79,12 +79,12 @@ export default class Install extends oclif.Command {
         }
         // fire hook preinstall
         this.log("\tInstalling NPM modules...");
-        await lib.exec("yarn install", { cwd: moduleDir });
+        await lib.exec("npm install", { cwd: moduleDir });
         const jsDirs = metadata.dirs.staticFiles.map(d => moduleDir + "/" + d + "/js");
         if (jsDirs.length > 0) this.log(`\tInstalling client-side NPM modules...`);
         for (const jsDir of jsDirs) {
             if (!await fs.pathExists(jsDir)) continue;
-            await lib.exec("yarn install", { cwd: jsDir });
+            await lib.exec("npm install", { cwd: jsDir });
         }
         return true;
     }
