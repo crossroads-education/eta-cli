@@ -1,3 +1,4 @@
+import * as fs from "fs-extra";
 import * as lib from "../../lib";
 import * as oclif from "@oclif/command";
 
@@ -22,12 +23,14 @@ export default class CompileClient extends oclif.Command {
         if (moduleNames.length === 0 && !lib.IN_ETA_ROOT && workingModuleName !== undefined) {
             moduleNames.push(workingModuleName);
         }
-        this.log("Compiling client-side JS...");
+        this.log("Installing client-side NPM packages and compiling...");
         const staticDirs = await lib.eta.getModuleSubDirs(lib.WORKING_DIR, moduleNames, "staticFiles");
         try {
             for (const staticDir of staticDirs) {
                 const jsDir = staticDir + "/js";
-                console.log(`\tCompiling "${jsDir}"...`);
+                if (!await fs.pathExists(jsDir)) continue;
+                await lib.exec("yarn install", { cwd: jsDir });
+                console.log(`\tInstalling and compiling in "${jsDir}"...`);
                 await lib.exec("node " + lib.TSC_PATH, {
                     cwd: jsDir
                 });

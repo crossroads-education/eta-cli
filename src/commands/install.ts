@@ -91,7 +91,7 @@ export default class Install extends oclif.Command {
 
     private async fetchMetadata(owner: string, repo: string, branch = "master") {
         try {
-            const res = await this.octokit!.repos.getContent({
+            const res = await this.octokit!.repos.getContents({
                 owner, repo,
                 path: "eta.json",
                 ref: branch

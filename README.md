@@ -15,7 +15,7 @@ $ npm install -g @xroadsed/eta-cli
 $ eta COMMAND
 running command...
 $ eta (-v|--version|version)
-@xroadsed/eta-cli/1.3.23 darwin-x64 node-v10.6.0
+@xroadsed/eta-cli/1.3.24 darwin-x64 node-v10.6.0
 $ eta --help [COMMAND]
 USAGE
   $ eta COMMAND
@@ -58,7 +58,7 @@ USAGE
   $ eta clean
 ```
 
-_See code: [lib/commands/clean.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/clean.js)_
+_See code: [lib/commands/clean.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/clean.js)_
 
 ## `eta compile:client`
 
@@ -73,7 +73,7 @@ OPTIONS
   --no-exit              Don't exit with an error code if compilation fails
 ```
 
-_See code: [lib/commands/compile/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/compile/client.js)_
+_See code: [lib/commands/compile/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/compile/client.js)_
 
 ## `eta compile:server`
 
@@ -90,7 +90,7 @@ ALIASES
   $ eta compile
 ```
 
-_See code: [lib/commands/compile/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/compile/server.js)_
+_See code: [lib/commands/compile/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/compile/server.js)_
 
 ## `eta config:get [KEY]`
 
@@ -104,7 +104,7 @@ ARGUMENTS
   KEY  The key to get (including domain)
 ```
 
-_See code: [lib/commands/config/get.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/config/get.js)_
+_See code: [lib/commands/config/get.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/config/get.js)_
 
 ## `eta config:set [KEY] [VALUE]`
 
@@ -119,7 +119,7 @@ ARGUMENTS
   VALUE  The value to set
 ```
 
-_See code: [lib/commands/config/set.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/config/set.js)_
+_See code: [lib/commands/config/set.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/config/set.js)_
 
 ## `eta db:reset`
 
@@ -133,7 +133,7 @@ OPTIONS
   -n, --no-wait  Don't wait 3 seconds before resetting
 ```
 
-_See code: [lib/commands/db/reset.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/db/reset.js)_
+_See code: [lib/commands/db/reset.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/db/reset.js)_
 
 ## `eta db:seed`
 
@@ -147,7 +147,7 @@ OPTIONS
   -n, --no-log  Don't log anything from the Eta instance
 ```
 
-_See code: [lib/commands/db/seed.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/db/seed.js)_
+_See code: [lib/commands/db/seed.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/db/seed.js)_
 
 ## `eta extract-config`
 
@@ -158,7 +158,7 @@ USAGE
   $ eta extract-config
 ```
 
-_See code: [lib/commands/extract-config.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/extract-config.js)_
+_See code: [lib/commands/extract-config.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/extract-config.js)_
 
 ## `eta foreach [COMMAND]`
 
@@ -175,7 +175,7 @@ OPTIONS
   -c, --clientJS=clientJS  run in client-side JS directories only
 ```
 
-_See code: [lib/commands/foreach.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/foreach.js)_
+_See code: [lib/commands/foreach.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/foreach.js)_
 
 ## `eta generate:clientjs MODULE`
 
@@ -189,7 +189,7 @@ ARGUMENTS
   MODULE  module name to generate client-side JS for
 ```
 
-_See code: [lib/commands/generate/clientjs.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/generate/clientjs.js)_
+_See code: [lib/commands/generate/clientjs.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/generate/clientjs.js)_
 
 ## `eta generate:controller MODULENAME ROUTE`
 
@@ -204,7 +204,7 @@ ARGUMENTS
   ROUTE       route to generate controller for
 ```
 
-_See code: [lib/commands/generate/controller.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/generate/controller.js)_
+_See code: [lib/commands/generate/controller.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/generate/controller.js)_
 
 ## `eta generate:indexes`
 
@@ -218,7 +218,7 @@ ALIASES
   $ eta generate
 ```
 
-_See code: [lib/commands/generate/indexes.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/generate/indexes.js)_
+_See code: [lib/commands/generate/indexes.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/generate/indexes.js)_
 
 ## `eta generate:model MODULENAME MODELNAME`
 
@@ -233,7 +233,7 @@ ARGUMENTS
   MODELNAME   name for new model
 ```
 
-_See code: [lib/commands/generate/model.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/generate/model.js)_
+_See code: [lib/commands/generate/model.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/generate/model.js)_
 
 ## `eta generate:module MODULE`
 
@@ -247,7 +247,7 @@ ARGUMENTS
   MODULE  module name to generate
 ```
 
-_See code: [lib/commands/generate/module.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/generate/module.js)_
+_See code: [lib/commands/generate/module.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/generate/module.js)_
 
 ## `eta help [COMMAND]`
 
@@ -282,7 +282,7 @@ OPTIONS
   --host=host      add config folder for this host (e.g. localhost)
 ```
 
-_See code: [lib/commands/init.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/init.js)_
+_See code: [lib/commands/init.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/init.js)_
 
 ## `eta install URL`
 
@@ -296,7 +296,7 @@ ARGUMENTS
   URL  url to install module from
 ```
 
-_See code: [lib/commands/install.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/install.js)_
+_See code: [lib/commands/install.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/install.js)_
 
 ## `eta lint:client`
 
@@ -311,7 +311,7 @@ OPTIONS
   -m, --modules=modules  Only lint these modules (comma-separated)
 ```
 
-_See code: [lib/commands/lint/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/lint/client.js)_
+_See code: [lib/commands/lint/client.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/lint/client.js)_
 
 ## `eta lint:server`
 
@@ -328,7 +328,7 @@ ALIASES
   $ eta lint
 ```
 
-_See code: [lib/commands/lint/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/lint/server.js)_
+_See code: [lib/commands/lint/server.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/lint/server.js)_
 
 ## `eta pull`
 
@@ -342,7 +342,7 @@ OPTIONS
   -m, --modules=modules  Module names to pull
 ```
 
-_See code: [lib/commands/pull.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/pull.js)_
+_See code: [lib/commands/pull.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/pull.js)_
 
 ## `eta setup`
 
@@ -353,7 +353,7 @@ USAGE
   $ eta setup
 ```
 
-_See code: [lib/commands/setup.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/setup.js)_
+_See code: [lib/commands/setup.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/setup.js)_
 
 ## `eta start`
 
@@ -367,7 +367,7 @@ OPTIONS
   -f, --fast  don't generate or compile, just start
 ```
 
-_See code: [lib/commands/start.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/start.js)_
+_See code: [lib/commands/start.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/start.js)_
 
 ## `eta status`
 
@@ -378,7 +378,7 @@ USAGE
   $ eta status
 ```
 
-_See code: [lib/commands/status.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/status.js)_
+_See code: [lib/commands/status.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/status.js)_
 
 ## `eta test:core`
 
@@ -395,7 +395,7 @@ ALIASES
   $ eta test
 ```
 
-_See code: [lib/commands/test/core.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/test/core.js)_
+_See code: [lib/commands/test/core.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/test/core.js)_
 
 ## `eta test:modules`
 
@@ -415,5 +415,5 @@ OPTIONS
   --reporter=reporter    reporter name for mocha to use
 ```
 
-_See code: [lib/commands/test/modules.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.23/lib/commands/test/modules.js)_
+_See code: [lib/commands/test/modules.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.24/lib/commands/test/modules.js)_
 <!-- commandsstop -->
