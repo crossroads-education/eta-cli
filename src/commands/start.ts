@@ -8,6 +8,14 @@ export default class Start extends oclif.Command {
         fast: oclif.flags.boolean({
             char: "f",
             description: "don't generate or compile, just start"
+        }),
+        env: oclif.flags.string({
+            char: "e",
+            env: "NODE_ENV",
+            options: ["local", "dev", "prod"],
+            default: "local",
+            required: false,
+            description: "set NODE_ENV; Right now, this affects Graylog logging"
         })
     };
 
