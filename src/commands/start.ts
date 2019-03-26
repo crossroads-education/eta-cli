@@ -9,7 +9,7 @@ export default class Start extends oclif.Command {
             char: "f",
             description: "don't generate or compile, just start"
         }),
-        local: oclif.flags.string({
+        env: oclif.flags.string({
             char: "e",
             env: "NODE_ENV",
             options: ["local", "dev", "prod"],

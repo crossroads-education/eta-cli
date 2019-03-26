@@ -364,6 +364,7 @@ USAGE
 
 OPTIONS
   -f, --fast  don't generate or compile, just start
+  -e=[local, dev, prod] or --env=[local, dev, prod], set the NODE_ENV, defaults to local
 ```
 
 _See code: [lib/commands/start.js](https://github.com/crossroads-education/eta-cli/blob/v1.3.25/lib/commands/start.js)_
